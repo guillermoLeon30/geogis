@@ -94,14 +94,18 @@ function AgregarMano() {
 							'<input type="hidden" name="id" class="manos" value="'+id+'">'+
 			                '<input type="hidden" name="id" class="mano'+id+'" value="'+id+'">'+
 			                '<input type="hidden" name="cantidad" class="mano'+id+'" value="'+cantidad+'">'+
-			                '<input type="hidden" name="rendimiento" class="mano'+id+'" value="'+rendimiento+'">'+
-			                '<input type="hidden" name="costo" class="mano'+id+'" value="'+costoHora+'">'+
 							'<textarea disabled>'+ descripcion +'</textarea>'+
 						'</td>'+
-						'<td>'+ cantidad +'</td>'+
-						'<td>$'+ costoHora +'</td>'+
-						'<td>'+ rendimiento +'</td>'+
-						'<td>$'+ total.toFixed(2) +'</td>'+
+						'<td>'+ 
+							'<input type="text" name="cantidad" class="mano'+id+'" value="'+cantidad+'">'+
+						'</td>'+
+						'<td>'+ 
+							'<input type="text" name="costo" class="mano'+id+'" value="'+costoHora+'">'+
+						'</td>'+
+						'<td>'+ 
+							'<input type="text" name="rendimiento" class="mano'+id+'" value="'+rendimiento+'">'+
+						'</td>'+
+						'<td id="totalMano'+id+'">$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarMano('+id+')">'+
 								'<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'+
@@ -137,6 +141,30 @@ function esValidoAgregarMano() {
 	}
 
 	return true;
+}
+
+function cambioMano(id) {
+	var cantidad = Number($('#filaMano' + id + ' input[name=cantidad]').val());
+	if (isNaN(cantidad) || cantidad < 0.01) {
+		cantidad=0.01;
+		$('#filaMano' + id + ' input[name=cantidad]').val('0.01');
+	}
+
+	var costo = $('#filaMano' + id + ' input[name=costo]').val();
+	if (isNaN(costo) || costo <0.01) {
+		costo = 0.01;
+		$('#filaMano' + id + ' input[name=costo]').val('0.01');
+	}
+
+	var rendimiento = $('#filaMano' + id + ' input[name=rendimiento]').val();
+	if (isNaN(rendimiento) || rendimiento < 0.01) {
+		rendimiento = 0.01;
+		$('#filaMano' + id + ' input[name=rendimiento]').val('0.01');
+	}
+
+	var total = cantidad * costo * rendimiento;
+	$('#totalMano'+id).html('$'+total.toFixed(2));
+	costos();
 }
 
 function manos() {

@@ -27,16 +27,19 @@
                 <td class="textarea">
                   <input type="hidden" name="id" class="manos" value="{{$mano->id}}">
                   <input type="hidden" name="id" class="mano{{ $mano->id }}" value="{{$mano->id}}">
-                  <input type="hidden" name="cantidad" class="mano{{ $mano->id }}" value="{{$mano->pivot->cantidad}}">
-                  <input type="hidden" name="rendimiento" class="mano{{ $mano->id }}" value="{{$mano->pivot->rendimiento}}">
-                  <input type="hidden" name="costo" class="mano{{ $mano->id }}" value="{{$mano->costo_hora}}">
                   <textarea disabled>{{ $mano->descripcion }}</textarea>
                 </td>
-                <td>{{ $mano->pivot->cantidad }}</td>
-                <td>${{ $mano->costo_hora }}</td>
-                <td>{{ $mano->pivot->rendimiento }}</td>
                 <td>
-                  ${{ round($mano->costo_hora * $mano->pivot->cantidad * $mano->pivot->rendimiento,2) }}
+                  <input type="text" name="cantidad" class="mano{{ $mano->id }}" value="{{$mano->pivot->cantidad}}" onblur="cambioMano({{$mano->id}})">
+                </td>
+                <td>
+                  <input type="text" name="costo" class="mano{{ $mano->id }}" value="{{$mano->pivot->costo_hora2}}" onblur="cambioMano({{$mano->id}})">
+                </td>
+                <td>
+                  <input type="text" name="rendimiento" class="mano{{ $mano->id }}" value="{{$mano->pivot->rendimiento}}" onblur="cambioMano({{$mano->id}})">
+                </td>
+                <td id="totalMano{{ $mano->id }}">
+                  ${{ round($mano->pivot->costo_hora2 * $mano->pivot->cantidad * $mano->pivot->rendimiento,2) }}
                 </td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarMano({{ $mano->id }})">
