@@ -4,8 +4,24 @@
 		"selected_items":
 		[
 			[
+				"co",
+				"costo"
+			],
+			[
 				"to",
-				"toFixed"
+				"total"
+			],
+			[
+				"tr",
+				"transporte"
+			],
+			[
+				"ma",
+				"mano"
+			],
+			[
+				"tex",
+				"text"
 			],
 			[
 				"eq",
@@ -26,10 +42,6 @@
 			[
 				"costo",
 				"costo_hora2"
-			],
-			[
-				"tr",
-				"transportes"
 			],
 			[
 				"cos",
@@ -156,10 +168,6 @@
 				"sync"
 			],
 			[
-				"ma",
-				"materiales"
-			],
-			[
 				"for",
 				"foreach\tforeach …"
 			],
@@ -170,10 +178,6 @@
 			[
 				"e",
 				"eqs"
-			],
-			[
-				"co",
-				"costoKm"
 			],
 			[
 				"tra",
@@ -510,10 +514,6 @@
 			[
 				"validateEsArre",
 				"validateEsArregloNumerico"
-			],
-			[
-				"produc",
-				"product_stock_id"
 			]
 		]
 	},
@@ -611,13 +611,18 @@
 	[
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/equipos.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabEquipos.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/mano_de_obra.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabManoDeObra.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/transporte.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTransporte.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabMateriales.blade.php",
+		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/materiales.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/edit/include/tabApus.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/edit.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/edit/include/tabla.blade.php",
 		"/D/XAMPP/htdocs/geogis/app/Http/Controllers/BiblioApusController.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/costos.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsPrincipal.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabManoDeObra.blade.php",
 		"/D/XAMPP/htdocs/geogis/app/Http/Requests/ApuUpdateRequest.php",
 		"/D/XAMPP/htdocs/geogis/app/Http/Requests/UpdateBiblioApuRequest.php",
 		"/D/XAMPP/htdocs/geogis/app/Models/BibliotecaApus.php",
@@ -625,11 +630,7 @@
 		"/D/XAMPP/htdocs/geogis/app/Http/Requests/ApuRequest.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabCostos.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/datos.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTransporte.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/js/jsTabMateriales.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/modalIngresarEquipos.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/materiales.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/mano_de_obra.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/modalIngresarTransporte.blade.php",
 		"/C/Users/leon/Desktop/AdminLTE-2.4.2/build/js/DirectChat.js",
 		"/D/XAMPP/htdocs/geogis/resources/views/proyecto/categoria/apu/edit/include/modalIngresarManoDeObra.blade.php",
@@ -735,8 +736,7 @@
 		"/D/XAMPP/htdocs/geogis/resources/views/biblioteca_apus/edit/include/modalIngresarManoDeObra.blade.php",
 		"/D/XAMPP/htdocs/geogis/resources/views/biblioteca_apus/edit/include/datos.blade.php",
 		"/D/XAMPP/htdocs/geogis/app/Models/Equipo.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/biblioteca_apus/index/js/jsPrincipal.blade.php",
-		"/D/XAMPP/htdocs/geogis/resources/views/biblioteca_apus/index/js/js.blade.php"
+		"/D/XAMPP/htdocs/geogis/resources/views/biblioteca_apus/index/js/jsPrincipal.blade.php"
 	],
 	"find":
 	{
@@ -804,7 +804,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -860,10 +860,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 918.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -890,7 +890,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 558.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -919,10 +919,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 540.0,
+						"translation.y": 594.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
