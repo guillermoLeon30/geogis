@@ -24,6 +24,8 @@
               <tr>
                 <th>Nombre</th>
                 <th>Unidad</th>
+                <th>Costo</th>
+                <th>Cantidad</th>
                 <th>Total</th>
                 <th></th>
               </tr>
@@ -37,6 +39,8 @@
                   </td>
                   <td>{{ $apu->unidad }}</td>
                   <td>${{ $apu->totalGeneral() }}</td>
+                  <td>3</td>
+                  <td>$2345</td>
                   <td>
                     <a class="btn btn-primary" href="{{ url('apu') }}/{{ $apu->id }}/edit">
                       <span class="glyphicon glyphicon-pencil"></span>
