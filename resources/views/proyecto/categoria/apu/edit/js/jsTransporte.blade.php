@@ -99,14 +99,16 @@ function AgregarTransporte() {
 						'<td class="textarea">'+
 							'<input type="hidden" name="id" class="transportes" value="'+id+'">'+
 			                '<input type="hidden" name="id" class="transporte'+id+'" value="'+id+'">'+
-			                '<input type="hidden" name="cantidad" class="transporte'+id+'" value="'+cantidad+'">'+
-			                '<input type="hidden" name="costo" class="transporte'+id+'" value="'+costoKm+'">'+
 							'<textarea disabled>'+ descripcion +'</textarea>'+
 						'</td>'+
 						'<td>'+ unidad +'</td>'+
-						'<td>$'+ costoKm +'/km</td>'+
-						'<td>'+ cantidad +'Km</td>'+
-						'<td>$'+ total.toFixed(2) +'</td>'+
+						'<td>'+
+							'<input type="text" name="costo" class="transporte'+id+'" value="'+costoKm+'" onblur="cambioTransporte('+id+')">'+
+						'</td>'+
+						'<td>'+
+							'<input type="text" name="cantidad" class="transporte'+id+'" value="'+cantidad+'" onblur="cambioTransporte('+id+')">'+
+						'</td>'+
+						'<td id="totalTransporte'+id+'">$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarTransporte('+ id +')">'+
 								'<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'+
@@ -141,6 +143,24 @@ function esValidoAgregarTransporte() {
 	}
 
 	return true;
+}
+
+function cambioTransporte(id) {
+	var cantidad = Number($('#filaTransporte' + id + ' input[name=cantidad]').val());
+	if (isNaN(cantidad) || cantidad < 0.01) {
+		cantidad=0.01;
+		$('#filaTransporte' + id + ' input[name=cantidad]').val('0.01');
+	}
+
+	var costo = $('#filaTransporte' + id + ' input[name=costo]').val();
+	if (isNaN(costo) || costo <0.01) {
+		costo = 0.01;
+		$('#filaTransporte' + id + ' input[name=costo]').val('0.01');
+	}
+
+	var total = cantidad * costo;
+	$('#totalTransporte'+id).html('$'+total.toFixed(2));
+	costos();
 }
 
 function transportes() {

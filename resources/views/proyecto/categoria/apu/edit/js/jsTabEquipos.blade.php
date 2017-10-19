@@ -103,7 +103,7 @@ function AgregarEquipo() {
 						'<td>'+ 
 							'<input type="text" name="rendimiento" class="equipo'+id+'" value="'+rendimiento+'" onblur="cambioEquipo('+id+')">'+
 						'</td>'+
-						'<td id="totalEquipo'+id+'>$'+ total.toFixed(2) +'</td>'+
+						'<td id="totalEquipo'+id+'">$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarEquipo('+id+')">'+
 								'<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'+

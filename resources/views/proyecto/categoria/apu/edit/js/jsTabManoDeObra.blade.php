@@ -93,17 +93,16 @@ function AgregarMano() {
 						'<td class="textarea">'+
 							'<input type="hidden" name="id" class="manos" value="'+id+'">'+
 			                '<input type="hidden" name="id" class="mano'+id+'" value="'+id+'">'+
-			                '<input type="hidden" name="cantidad" class="mano'+id+'" value="'+cantidad+'">'+
 							'<textarea disabled>'+ descripcion +'</textarea>'+
 						'</td>'+
 						'<td>'+ 
-							'<input type="text" name="cantidad" class="mano'+id+'" value="'+cantidad+'">'+
+							'<input type="text" name="cantidad" class="mano'+id+'" value="'+cantidad+'" onblur="cambioMano('+id+')">'+
 						'</td>'+
 						'<td>'+ 
-							'<input type="text" name="costo" class="mano'+id+'" value="'+costoHora+'">'+
+							'<input type="text" name="costo" class="mano'+id+'" value="'+costoHora+'" onblur="cambioMano('+id+')">'+
 						'</td>'+
 						'<td>'+ 
-							'<input type="text" name="rendimiento" class="mano'+id+'" value="'+rendimiento+'">'+
+							'<input type="text" name="rendimiento" class="mano'+id+'" value="'+rendimiento+'" onblur="cambioMano('+id+')">'+
 						'</td>'+
 						'<td id="totalMano'+id+'">$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
@@ -150,19 +149,21 @@ function cambioMano(id) {
 		$('#filaMano' + id + ' input[name=cantidad]').val('0.01');
 	}
 
-	var costo = $('#filaMano' + id + ' input[name=costo]').val();
+	var costo = Number($('#filaMano' + id + ' input[name=costo]').val());
 	if (isNaN(costo) || costo <0.01) {
 		costo = 0.01;
 		$('#filaMano' + id + ' input[name=costo]').val('0.01');
 	}
 
-	var rendimiento = $('#filaMano' + id + ' input[name=rendimiento]').val();
+	var rendimiento = Number($('#filaMano' + id + ' input[name=rendimiento]').val());
 	if (isNaN(rendimiento) || rendimiento < 0.01) {
 		rendimiento = 0.01;
 		$('#filaMano' + id + ' input[name=rendimiento]').val('0.01');
 	}
 
+
 	var total = cantidad * costo * rendimiento;
+	console.log(cantidad, costo, rendimiento, total);
 	$('#totalMano'+id).html('$'+total.toFixed(2));
 	costos();
 }

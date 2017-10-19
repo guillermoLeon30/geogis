@@ -14,7 +14,7 @@
             <tr>
               <th>Descripcion</th>
               <th>Unidad</th>
-              <th>Tarifa</th>
+              <th>Tarifa/Km</th>
               <th>Distancia</th>
               <th>Total</th>
               <th></th>
@@ -27,14 +27,18 @@
                 <td class="textarea">
                   <input type="hidden" name="id" class="transportes" value="{{$transporte->id}}">
                   <input type="hidden" name="id" class="transporte{{ $transporte->id }}" value="{{$transporte->id}}">
-                  <input type="hidden" name="cantidad" class="transporte{{ $transporte->id }}" value="{{$transporte->pivot->cantidad}}">
-                  <input type="hidden" name="costo" class="transporte{{ $transporte->id }}" value="{{$transporte->costo_km}}">
                   <textarea disabled>{{ $transporte->descripcion }}</textarea>
                 </td>
                 <td>{{ $transporte->unidad }}</td>
-                <td>${{ $transporte->costo_km }}/km</td>
-                <td>{{ $transporte->pivot->cantidad }}Km</td>
-                <td>${{ round($transporte->costo_km*$transporte->pivot->cantidad, 2) }}</td>
+                <td>
+                  <input type="text" name="costo" class="transporte{{ $transporte->id }}" value="{{$transporte->pivot->costo_km2}}" onblur="cambioTransporte({{$transporte->id}})">
+                </td>
+                <td>
+                  <input type="text" name="cantidad" class="transporte{{ $transporte->id }}" value="{{$transporte->pivot->cantidad}}" onblur="cambioTransporte({{$transporte->id}})">
+                </td>
+                <td id="totalTransporte{{$transporte->id}}">
+                  ${{ round($transporte->pivot->costo_km2*$transporte->pivot->cantidad, 2) }}
+                </td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarTransporte({{ $transporte->id }})">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
