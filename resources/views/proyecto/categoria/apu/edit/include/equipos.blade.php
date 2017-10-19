@@ -33,13 +33,13 @@
                   <input type="text" name="cantidad" class="equipo{{ $equipo->id }}" value="{{$equipo->pivot->cantidad}}" onblur="cambioEquipo({{ $equipo->id }})">
                 </td>
                 <td>
-                  <input type="text" name="costo" class="equipo{{ $equipo->id }}" value="{{$equipo->costo_hora}}" onblur="cambioEquipo({{ $equipo->id }})">
+                  <input type="text" name="costo" class="equipo{{ $equipo->id }}" value="{{$equipo->pivot->costo_hora2}}" onblur="cambioEquipo({{ $equipo->id }})">
                 </td>
                 <td>
                   <input type="text" name="rendimiento" class="equipo{{ $equipo->id }}" value="{{$equipo->pivot->rendimiento}}" onblur="cambioEquipo({{ $equipo->id }})">
                 </td>
                 <td id="totalEquipo{{$equipo->id}}">
-                  ${{ round($equipo->pivot->cantidad*$equipo->costo_hora*$equipo->pivot->rendimiento,2) }}
+                  ${{ round($equipo->pivot->cantidad*$equipo->pivot->costo_hora2*$equipo->pivot->rendimiento,2) }}
                 </td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarEquipo({{ $equipo->id }})">

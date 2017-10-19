@@ -161,7 +161,7 @@ function cambioEquipo(id) {
 	}
 
 	var total = cantidad * costo * rendimiento;
-	$('#totalEquipo'+id).html(total.toFixed(2));
+	$('#totalEquipo'+id).html('$'+total.toFixed(2));
 	costos();
 }
 

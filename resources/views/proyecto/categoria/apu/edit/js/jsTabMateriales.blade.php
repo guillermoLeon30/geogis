@@ -97,14 +97,16 @@ function AgregarMaterial() {
 						'<td class="textarea">'+
 							'<input type="hidden" name="id" class="materiales" value="'+id+'">'+
                   			'<input type="hidden" name="id" class="material'+id+'" value="'+id+'">'+
-                  			'<input type="hidden" name="cantidad" class="material'+id+'" value="'+cantidad+'">'+
-                  			'<input type="hidden" name="costo" class="material'+id+'" value="'+costo+'">'+
 							'<textarea disabled>'+ descripcion +'</textarea>'+
 						'</td>'+
 						'<td>'+ unidad +'</td>'+
-						'<td>$'+ costo +'</td>'+
-						'<td>'+ cantidad +'</td>'+
-						'<td>$'+ total.toFixed(2) +'</td>'+
+						'<td>'+ 
+							'<input type="text" name="costo" class="material'+id+'" onblur="cambioMaterial('+id+')" value="'+costo+'">'+
+						'</td>'+
+						'<td>'+ 
+							'<input type="text" name="cantidad" class="material'+id+'" onblur="cambioMaterial('+id+')" value="'+cantidad+'">'+
+						'</td>'+
+						'<td id="totalMaterial'+ id +'">$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarMaterial('+id+')">'+
 								'<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'+
@@ -137,6 +139,24 @@ function esValidoAgregarMaterial() {
 	}
 
 	return true;
+}
+
+function cambioMaterial(id) {
+	var cantidad = Number($('#filaMaterial' + id + ' input[name=cantidad]').val());
+	if (isNaN(cantidad) || cantidad < 0.01) {
+		cantidad=0.01;
+		$('#filaMaterial' + id + ' input[name=cantidad]').val('0.01');
+	}
+
+	var costo = $('#filaMaterial' + id + ' input[name=costo]').val();
+	if (isNaN(costo) || costo <0.01) {
+		costo = 0.01;
+		$('#filaMaterial' + id + ' input[name=costo]').val('0.01');
+	}
+
+	var total = cantidad * costo;
+	$('#totalMaterial'+id).html('$'+total.toFixed(2));
+	costos();
 }
 
 function materiales() {

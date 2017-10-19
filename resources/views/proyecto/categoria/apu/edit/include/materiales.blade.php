@@ -27,14 +27,18 @@
                 <td class="textarea">
                   <input type="hidden" name="id" class="materiales" value="{{$material->id}}">
                   <input type="hidden" name="id" class="material{{ $material->id }}" value="{{$material->id}}">
-                  <input type="hidden" name="cantidad" class="material{{ $material->id }}" value="{{$material->pivot->cantidad}}">
-                  <input type="hidden" name="costo" class="material{{ $material->id }}" value="{{$material->costo}}">
                   <textarea disabled>{{ $material->descripcion }}</textarea>
                 </td>
                 <td>{{ $material->unidad }}</td>
-                <td>${{ $material->costo }}</td>
-                <td>{{ $material->pivot->cantidad }}</td>
-                <td>${{ round($material->costo * $material->pivot->cantidad, 2) }}</td>
+                <td>
+                  <input type="text" name="costo" onblur="cambioMaterial({{$material->id}})" class="material{{ $material->id }}" value="{{$material->pivot->costo2}}">
+                </td>
+                <td>
+                  <input type="text" name="cantidad" onblur="cambioMaterial({{$material->id}})" class="material{{ $material->id }}" value="{{$material->pivot->cantidad}}">
+                </td>
+                <td id="totalMaterial{{ $material->id }}">
+                  ${{ round($material->pivot->costo2 * $material->pivot->cantidad, 2) }}
+                </td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarMaterial({{ $material->id }})">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
