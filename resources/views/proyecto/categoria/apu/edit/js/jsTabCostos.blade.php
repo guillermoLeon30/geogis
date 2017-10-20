@@ -14,6 +14,7 @@ function costos() {
 	$('#totalCostos').val(total.toFixed(2));
 	costoIndirectos();
 	costoUtilidad();
+	calculoApu();
 }
 
 function costoEquipos() {
@@ -67,6 +68,7 @@ function costoIndirectos() {
 	
 	$('#indirectos').val(indirectos.toFixed(2));
 	total();
+	calculoApu();
 }
 
 function costoUtilidad() {
@@ -76,6 +78,7 @@ function costoUtilidad() {
 	
 	$('#utilidad').val(utilidad.toFixed(2));
 	total();
+	calculoApu();
 }
 
 function total() {
