@@ -28,6 +28,7 @@ class ApuUpdateRequest extends FormRequest
             'datos.unidad'                  =>  'required|string|max:255',
             'datos.por_indirectos'          =>  'integer|min:0|max:100',
             'datos.por_utilidad'            =>  'integer|min:0|max:100',
+            'datos.cantidad'                =>  'required|numeric|min:0.01|max:999999999',
             'equipos'                       
                 =>  'required_without_all:materiales,manosObra,transportes|IdsArregloDistintos',
             'equipos.*.id'                  =>  'numeric',

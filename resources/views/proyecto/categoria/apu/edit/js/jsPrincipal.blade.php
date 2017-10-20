@@ -43,6 +43,7 @@ function datos() {
 	datos.unidad = $('#unidad').val();
 	datos.por_indirectos = $('#porIndirecto').val();
 	datos.por_utilidad = $('#porUtilidad').val();
+	datos.cantidad = $('#cantidadApu').val();
 
 	return datos;
 }

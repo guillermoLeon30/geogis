@@ -77,6 +77,7 @@
 
 @push('js')
 	@include('proyecto.categoria.apu.edit.js.js')
+	@include('proyecto.categoria.apu.edit.js.jsTabDatos')
 	@include('proyecto.categoria.apu.edit.js.jsTabEquipos')
 	@include('proyecto.categoria.apu.edit.js.jsTabMateriales')
 	@include('proyecto.categoria.apu.edit.js.jsTabManoDeObra')

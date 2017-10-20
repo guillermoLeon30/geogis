@@ -10,7 +10,7 @@ use App\Models\Transporte;
 
 class Apu extends Model
 {
-    protected $fillable = ['categoria_id', 'descripcion', 'unidad', 'por_indirectos', 'por_utilidad'];
+    protected $fillable = ['categoria_id', 'descripcion', 'unidad', 'por_indirectos', 'por_utilidad', 'cantidad'];
 
     //------------------------------------RELACIONES----------------------------------
     public function categoria(){
@@ -73,6 +73,10 @@ class Apu extends Model
         $utilidad = round($subtotal * $this->por_utilidad / 100, 2);
 
         return $subtotal + $indirectos + $utilidad;
+    }
+
+    public function totalApuCantidad(){
+        return round($this->totalGeneral() * $this->cantidad, 2);
     }
 
     /*******************************************************************************

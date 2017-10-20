@@ -16,6 +16,20 @@
         </div>            
       </div>
 
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Cantidad</label>
+        <div class="col-sm-10">
+          <input id="cantidadApu" type="text" class="form-control" value="{{ $apu->cantidad }}" onblur="calculoApu()">
+        </div>            
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Total</label>
+        <div class="col-sm-10">
+          <input id="totalApu" type="text" class="form-control" disabled value="{{ $apu->totalApuCantidad() }}">
+        </div>            
+      </div>
+
     </div>
   </form>
 </div>
