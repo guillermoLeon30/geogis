@@ -45,11 +45,13 @@
 	</div>
 
 	@include('proyecto.categoria.edit.include.modalIngresarApu')
+	@include('proyecto.categoria.edit.include.modalEliminar')
 @endsection
 
 @push('js')
 	@include('proyecto.categoria.edit.js.js')
 	@include('proyecto.categoria.edit.js.jsTabDatos')
 	@include('proyecto.categoria.edit.js.jsModalIngresarApu')
+	@include('proyecto.categoria.edit.js.jsModalEliminar')
 	@include('proyecto.categoria.edit.js.jsPrincipal')
 @endpush

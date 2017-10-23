@@ -50,7 +50,7 @@ function formatProducto (material) {
 					'</tr>'+
 
 					'<tr>'+
-						'<td><strong>Costo: </strong> </td>'+
+						'<td><strong>Unidad: </strong> </td>'+
 						'<td>'+material.unidad+'</td>'+
 					'</tr>'+
 
@@ -73,6 +73,7 @@ function formatRepoProducto(material) {
 	    		'<input id="materialUnidad" type="hidden" value="'+material.unidad+'">'+
 	    		'<input id="materialCosto" type="hidden" value="'+material.costo+'">'+
 				material.descripcion +
+				'<b> Costo: </b>' + material.costo + '/' + material.unidad +
 			'</span>'
 	);
 

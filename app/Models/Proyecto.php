@@ -109,6 +109,7 @@ class Proyecto extends Model
     public function eliminarUsuario($user_id){
         $this->usuarios()->detach($user_id);
     }
+
     /*******************************************************************************
     *	Funcion entregar fecha en el formato d/m/Y
     *	@in 
@@ -116,5 +117,30 @@ class Proyecto extends Model
     *********************************************************************************/
     public function fecha(){
     	return Carbon::createFromFormat('Y-m-d', $this->fecha)->format('d/m/Y');
+    }
+
+    /*******************************************************************************
+    *   Funcion retorna total
+    *   @in 
+    *   @out float
+    *********************************************************************************/
+    public function total(){
+        return round($this->categorias->map(function ($categoria, $key){
+            return $categoria->total();
+        })->sum(), 2);
+        
+    }
+
+    /*******************************************************************************
+    *   Funcion eliminar proyecto
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function eliminar(){
+        $this->categorias->each(function ($categoria, $key){
+            $categoria->eliminar();
+        });
+        $this->usuarios()->detach();
+        $this->delete();
     }
 }

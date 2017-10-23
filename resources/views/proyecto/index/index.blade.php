@@ -58,4 +58,5 @@
 	@include('proyecto.index.js.js')
 	@include('proyecto.index.js.jsPrincipal')
 	@include('proyecto.index.js.jsModalNuevo')
+	@include('proyecto.index.js.jsModalEliminar')
 @endpush	

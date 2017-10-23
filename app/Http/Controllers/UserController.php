@@ -21,16 +21,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view', new User());
-        
         $filtro = (isset($request->filtro) && !empty($request->filtro))?$request->filtro:'';
         $page = $request->page;
-        //dd($request->all());
+     
         if ($request->ajax() && $request->tipo = 'todos') {
             $id = User::idCreadorProyecto($request->idProyecto);
             $usuarios = User::buscar($filtro)->where('id', '!=', $id)->get()->take(20);
             return response()->json(['usuarios' => $usuarios]);
         }
+
+        $this->authorize('view', new User());
 
         $usuarios = User::buscar($filtro)->paginate(5);
         

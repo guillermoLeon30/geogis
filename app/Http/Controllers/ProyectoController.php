@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProyectoRequest;
 use App\Models\Proyecto;
 
@@ -120,7 +121,7 @@ class ProyectoController extends Controller
             return response()->json(['mensaje' => 'Se actualizó correctamente el registro.']);
         }
 
-        if ($request->info == 'permisos') {
+        if ($request->info == 'permisos' && Auth::User()->can('crearPermiso', $proyecto)) {
             DB::beginTransaction();
             try {
                 $proyecto->actualizarPermisos($request->all());
@@ -144,8 +145,19 @@ class ProyectoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Proyecto $proyecto)
     {
-        //
+        $this->authorize('crearPermiso', $proyecto);
+        DB::beginTransaction();
+        try {
+            $proyecto->eliminar();
+            DB::commit();
+            
+            return response()->json(['mensaje' => 'Se ingreso correctamente el registro.']); 
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return response()->json([], 500);   
+        }
     }
 }

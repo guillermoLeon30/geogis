@@ -77,6 +77,7 @@ class ApuController extends Controller
      */
     public function update(ApuUpdateRequest $request, Apu $apu)
     {
+        $this->authorize('editar', $apu->categoria->proyecto);
         DB::beginTransaction();
 
         try {
@@ -97,8 +98,22 @@ class ApuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Apu $apu)
     {
-        //
+        $this->authorize('editar', $apu->categoria->proyecto);
+        DB::beginTransaction();
+
+        try {
+            $apu->eliminar();
+            $total = $apu->categoria->total();
+            DB::commit();
+
+            return response()->json(['mensaje'  =>  'Se ingreso correctamente el registro.',
+                                     'total'    =>  $total]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([], 500);
+        }    
     }
 }

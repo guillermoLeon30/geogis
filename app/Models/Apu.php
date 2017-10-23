@@ -161,4 +161,17 @@ class Apu extends Model
 
         return $a;
     }
+
+     /*******************************************************************************
+    *   Funcion para eliminar apu
+    *   @in 
+    *   @out 
+    *********************************************************************************/
+    public function eliminar(){
+        $this->equipos()->detach();
+        $this->materiales()->detach();
+        $this->manoDeObra()->detach();
+        $this->transportes()->detach();
+        $this->delete();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
 
@@ -98,6 +99,21 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $this->authorize('editar', $categoria->proyecto);
+        DB::beginTransaction();
+
+        try {
+            $categoria->eliminar();
+            $total = $categoria->proyecto->total();
+            DB::commit();
+
+            return response()->json(['mensaje'  =>  'Se ingreso correctamente el registro.',
+                                     'total'    =>  $total]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([], 500);
+        }    
     }
 }

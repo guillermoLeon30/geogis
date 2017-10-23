@@ -9,6 +9,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-*.example
-composer.lock
-composer.lock

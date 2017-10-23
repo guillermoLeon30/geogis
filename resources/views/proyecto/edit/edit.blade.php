@@ -15,7 +15,6 @@
 		</ol>
 	</section>
 
-	
 @endsection
 
 @section('contenido')
@@ -28,7 +27,9 @@
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#datos" aria-controls="home" role="tab" data-toggle="tab">Datos</a></li>
 				    <li role="presentation"><a href="#categorias" aria-controls="home" role="tab" data-toggle="tab">Categorias</a></li>
-				    <li role="presentation"><a href="#permisos" aria-controls="profile" role="tab" data-toggle="tab">Permisos</a></li>
+				    @if(Auth::user()->can('crearPermiso', $proyecto))
+				    	<li role="presentation"><a href="#permisos" aria-controls="profile" role="tab" data-toggle="tab">Permisos</a></li>
+				    @endif
 				</ul>
 
 				  <!-- Tab panes -->
@@ -39,9 +40,11 @@
 				    <div role="tabpanel" class="tab-pane" id="categorias">
 				    	@include('proyecto.edit.include.tabCategorias')
 				    </div>
-				    <div role="tabpanel" class="tab-pane" id="permisos">
-				    	@include('proyecto.edit.include.tabPermisos')
-				    </div>
+				    @if(Auth::user()->can('crearPermiso', $proyecto))
+					    <div role="tabpanel" class="tab-pane" id="permisos">
+					    	@include('proyecto.edit.include.tabPermisos')
+					    </div>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -50,6 +53,7 @@
 	@include('proyecto.edit.include.modalIngresarCategoria')
 	@include('proyecto.edit.include.modalIngresarPermiso')
 	@include('proyecto.edit.include.modalEliminarPermiso')
+	@include('proyecto.edit.include.modalEliminarCategoria')
 @endsection
 
 @push('js')
@@ -57,6 +61,7 @@
 	@include('proyecto.edit.js.jsModalIngresoCategoria')
 	@include('proyecto.edit.js.jsModalIngresoPermiso')
 	@include('proyecto.edit.js.jsModalEliminarPermiso')
+	@include('proyecto.edit.js.jsModalEliminarCategoria')
 	@include('proyecto.edit.js.jsTabDatos')
 	@include('proyecto.edit.js.jsTabPermisos')
 	@include('proyecto.edit.js.jsPrincipal')

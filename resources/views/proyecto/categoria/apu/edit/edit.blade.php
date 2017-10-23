@@ -18,12 +18,13 @@
 
 		<br>
 
-		<div class="box-tools">
-			<button id="btnGuardar" class="btn btn-success" onclick="guardar()">
-				<i class="fa fa-save"></i>
-			</button>
-		</div>
-
+		@if(Auth::user()->can('editar', $apu->categoria->proyecto))
+			<div class="box-tools">
+				<button id="btnGuardar" class="btn btn-success" onclick="guardar()">
+					<i class="fa fa-save"></i>
+				</button>
+			</div>
+		@endif
 	</section>
 
 @endsection

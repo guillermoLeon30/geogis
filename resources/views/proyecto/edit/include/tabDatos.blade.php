@@ -26,7 +26,7 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">Total</label>
         <div class="col-sm-10">
-          <input id="total" type="text" class="form-control" disabled>
+          <input id="total" type="text" class="form-control" disabled value="${{ $proyecto->total() }}">
         </div>            
       </div>
 

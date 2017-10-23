@@ -45,10 +45,11 @@
                     <a class="btn btn-primary" href="{{ url('apu') }}/{{ $apu->id }}/edit">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    
-                    <button class="btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    @if(Auth::user()->can('editar', $apu->categoria->proyecto))
+                      <button class="btn btn-danger" onclick="eliminar({{$apu->id}})">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                    @endif
                   </td>
                 </tr>
               @endforeach

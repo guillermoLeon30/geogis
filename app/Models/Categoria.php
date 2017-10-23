@@ -36,4 +36,27 @@ class Categoria extends Model
         $this->fill($info);
         $this->save();
     }
+
+    /*******************************************************************************
+    *   Funcion retorna total
+    *   @in  
+    *   @out $float 
+    *********************************************************************************/
+    public function total(){
+        return round($this->apus->map(function ($apu, $key){
+            return $apu->totalApuCantidad();
+        })->sum() ,2);
+    }
+
+    /*******************************************************************************
+    *   Funcion eliminar categoria
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function eliminar(){
+        $this->apus->each(function ($apu, $key){
+            $apu->eliminar();
+        });
+        $this->delete();
+    }
 }

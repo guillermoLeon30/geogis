@@ -34,15 +34,16 @@
                   <td class="textarea">
                     <textarea disabled>{{ $categoria->nombre }}</textarea>
                   </td>
-                  <td>$300</td>
+                  <td>${{ $categoria->total() }}</td>
                   <td>
                     <a class="btn btn-primary" href="{{ url('categoria/'.$categoria->id.'/edit') }}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    
-                    <button class="btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    @if(Auth::user()->can('editar', $categoria->proyecto))
+                      <button class="btn btn-danger" onclick="eliminarCategoria({{$categoria->id}})">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                    @endif
                   </td>
                 </tr>
               @endforeach
