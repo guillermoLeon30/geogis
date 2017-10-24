@@ -25,10 +25,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Rendimiento</label>
             <div class="col-sm-10">
-              <div class="input-group">
-                <input id="rendimientoEquipo" type="text" class="form-control">
-                <span class="input-group-addon">%</span>
-              </div>
+              <input id="rendimientoEquipo" type="text" class="form-control">
             </div>
           </div>
 

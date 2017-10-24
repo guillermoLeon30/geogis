@@ -6,23 +6,22 @@
 
 @section('encabezadoContenido')
 	
-	<div class="box-header">
-		<h2 class="box-title" style="font-size: 30px">Editar APU</h2>
+	<section class="content-header">
+		<h1>Editar APU</h1> 
+
+		<ol  class="breadcrumb">
+			<li><a href="{{ url('biblioteca_apus') }}">APUs</a></li>
+			  <li class="active">Editar</li>
+		</ol>
+		
+		<br>
 
 		<div class="box-tools">
 			<button id="btnGuardar" class="btn btn-success" onclick="guardar()">
 				<i class="fa fa-save"></i>
 			</button>
 		</div>
-
-		<h4>
-			<ol id="bread" class="breadcrumb">
-			  <li><a href="{{ url('biblioteca_apus') }}">APUs</a></li>
-			  <li class="active">Editar</li>
-			</ol>
-		</h4>
-
-	</div>
+	</section>
 
 	
 @endsection

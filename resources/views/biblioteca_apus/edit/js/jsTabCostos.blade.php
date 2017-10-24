@@ -22,7 +22,7 @@ function costoEquipos() {
 	var total=0;
 
 	for (var i = 0; i < eqs.length; i++) {
-		total = total + eqs[i].cantidad * eqs[i].costo * eqs[i].rendimiento/100;
+		total = total + eqs[i].cantidad * eqs[i].costo * eqs[i].rendimiento;
 	}
 
 	return total.toFixed(2);
@@ -44,7 +44,7 @@ function costoMano() {
 	var total=0;
 
 	for (var i = 0; i < mns.length; i++) {
-		total = total + mns[i].cantidad * mns[i].costo * mns[i].rendimiento/100;
+		total = total + mns[i].cantidad * mns[i].costo * mns[i].rendimiento;
 	}
 
 	return total.toFixed(2);

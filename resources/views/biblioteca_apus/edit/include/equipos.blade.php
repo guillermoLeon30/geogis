@@ -34,9 +34,9 @@
                 </td>
                 <td>{{ $equipo->pivot->cantidad }}</td>
                 <td>${{ $equipo->costo_hora }}</td>
-                <td>{{ $equipo->pivot->rendimiento }}%</td>
+                <td>{{ $equipo->pivot->rendimiento }}</td>
                 <td>
-                  ${{ round($equipo->pivot->cantidad*$equipo->costo_hora*$equipo->pivot->rendimiento/100 ,2) }}
+                  ${{ round($equipo->pivot->cantidad*$equipo->costo_hora*$equipo->pivot->rendimiento ,2) }}
                 </td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarEquipo({{ $equipo->id }})">

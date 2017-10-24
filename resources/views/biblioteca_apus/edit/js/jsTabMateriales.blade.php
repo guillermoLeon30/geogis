@@ -72,7 +72,7 @@ function formatRepoProducto(material) {
 	    		'<input id="materialDescripcion" type="hidden" value="'+material.descripcion+'">'+
 	    		'<input id="materialUnidad" type="hidden" value="'+material.unidad+'">'+
 	    		'<input id="materialCosto" type="hidden" value="'+material.costo+'">'+
-				material.descripcion +
+				material.descripcion + ' <b>Costo:</b>' + material.costo + '/' + material.unidad + 
 			'</span>'
 	);
 
