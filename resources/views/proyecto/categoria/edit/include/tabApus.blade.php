@@ -6,6 +6,10 @@
           <i class="glyphicon glyphicon-plus"></i>
         </button>
 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCopiar">
+          <i class="fa fa-copy"></i>
+        </button>
+
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 200px;">
             <input id="buscar" type="text" class="form-control pull-right" placeholder="Buscar">
