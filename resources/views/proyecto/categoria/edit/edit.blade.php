@@ -45,6 +45,7 @@
 	</div>
 
 	@include('proyecto.categoria.edit.include.modalIngresarApu')
+	@include('proyecto.categoria.edit.include.modalCopiarApu')
 	@include('proyecto.categoria.edit.include.modalEliminar')
 @endsection
 
@@ -52,6 +53,7 @@
 	@include('proyecto.categoria.edit.js.js')
 	@include('proyecto.categoria.edit.js.jsTabDatos')
 	@include('proyecto.categoria.edit.js.jsModalIngresarApu')
+	@include('proyecto.categoria.edit.js.jsModalCopiarApu')
 	@include('proyecto.categoria.edit.js.jsModalEliminar')
 	@include('proyecto.categoria.edit.js.jsPrincipal')
 @endpush
