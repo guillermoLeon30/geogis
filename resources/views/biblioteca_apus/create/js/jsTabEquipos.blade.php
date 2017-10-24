@@ -96,7 +96,7 @@ function AgregarEquipo() {
 		equipos[contEquipos] = equipo;
 
 		var descripcion = $('#equipoDescripcion').val();
-		var total = datosEquipo.cantidad * costoHora * datosEquipo.rendimiento / 100;
+		var total = datosEquipo.cantidad * costoHora * datosEquipo.rendimiento;
 
 		var fila = '<tr id="filaEquipo'+ contEquipos +'">'+
 						'<td class="textarea">'+
@@ -104,7 +104,7 @@ function AgregarEquipo() {
 						'</td>'+
 						'<td>'+ equipo.datos.cantidad +'</td>'+
 						'<td>$'+ costoHora +'</td>'+
-						'<td>'+ equipo.datos.rendimiento +'%</td>'+
+						'<td>'+ equipo.datos.rendimiento +'</td>'+
 						'<td>$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarEquipo('+contEquipos+')">'+
@@ -130,9 +130,9 @@ function quitarEquipo(index) {
 function esValidoAgregarEquipo() {
 	var id = $('#selectEquipos').val();
 	var cantidad = $('#cantidadEquipo').val();
-	var rendimiento = Number($('#rendimientoEquipo').val());
+	var rendimiento = $('#rendimientoEquipo').val();
 
-	if (isNaN(cantidad) || cantidad<=0 || !Number.isInteger(rendimiento) || rendimiento>100 || rendimiento<=0) {
+	if (isNaN(cantidad) || cantidad<=0 || isNaN(rendimiento) || rendimiento<=0.01) {
 		return false;
 	}
 

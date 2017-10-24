@@ -96,7 +96,7 @@ function AgregarMano() {
 		manos[contManos] = mano;
 
 		var descripcion = $('#manoDescripcion').val();
-		var total = datosMano.cantidad * costoHora * datosMano.rendimiento / 100;
+		var total = datosMano.cantidad * costoHora * datosMano.rendimiento;
 
 		var fila = '<tr id="filaMano'+ contManos +'">'+
 						'<td class="textarea">'+
@@ -104,7 +104,7 @@ function AgregarMano() {
 						'</td>'+
 						'<td>'+ mano.datos.cantidad +'</td>'+
 						'<td>$'+ costoHora +'</td>'+
-						'<td>'+ mano.datos.rendimiento +'%</td>'+
+						'<td>'+ mano.datos.rendimiento +'</td>'+
 						'<td>$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarMano('+contManos+')">'+
@@ -130,9 +130,9 @@ function quitarMano(index) {
 function esValidoAgregarMano() {
 	var id = $('#selectManoDeObra').val();
 	var cantidad = $('#cantidadMano').val();
-	var rendimiento = Number($('#rendimientoMano').val());
+	var rendimiento = $('#rendimientoMano').val();
 
-	if (isNaN(cantidad) || cantidad<=0 || !Number.isInteger(rendimiento) || rendimiento>100 || rendimiento<=0) {
+	if (isNaN(cantidad) || cantidad<=0 || isNaN(rendimiento) || rendimiento<=0.01) {
 		return false;
 	}
 

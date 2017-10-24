@@ -31,7 +31,7 @@ class BiblioApusRequest extends FormRequest
                 =>  'required_without_all:materiales,manosObra,transportes|IdsArregloDistintos',
             'equipos.*.id'                  =>  'numeric',
             'equipos.*.datos.cantidad'      =>  'numeric|min:0.01|max:999999999',
-            'equipos.*.datos.rendimiento'   =>  'integer|min:1|max:100',
+            'equipos.*.datos.rendimiento'   =>  'numeric|min:0.01|max:999999999',
             'materiales'                    
                 =>  'required_without_all:equipos,manosObra,transportes|IdsArregloDistintos',
             'materiales.*.id'               =>  'numeric',
@@ -40,7 +40,7 @@ class BiblioApusRequest extends FormRequest
                 =>  'required_without_all:materiales,equipos,transportes|IdsArregloDistintos',
             'manosObra.*.id'                =>  'numeric',
             'manosObra.*.datos.cantidad'    =>  'numeric|min:0.01|max:999999999',
-            'manosObra.*.datos.rendimiento' =>  'integer|min:1|max:100',
+            'manosObra.*.datos.rendimiento' =>  'numeric|min:0.01|max:999999999',
             'transportes'                   
                 =>  'required_without_all:materiales,manosObra,equipos|IdsArregloDistintos',
             'transportes.*.id'              =>  'numeric',
@@ -68,7 +68,7 @@ class BiblioApusRequest extends FormRequest
             'equipos.*.datos.cantidad.numeric'      =>  'Error al ingresar la tabla Equipos.',
             'equipos.*.datos.cantidad.min'          =>  'Error al ingresar la tabla Equipos.',
             'equipos.*.datos.cantidad.max'          =>  'Error al ingresar la tabla Equipos.',
-            'equipos.*.datos.rendimiento.integer'   =>  'Error al ingresar la tabla Equipos.',
+            'equipos.*.datos.rendimiento.numeric'   =>  'Error al ingresar la tabla Equipos.',
             'equipos.*.datos.rendimiento.min'       =>  'Error al ingresar la tabla Equipos.',
             'equipos.*.datos.rendimiento.max'       =>  'Error al ingresar la tabla Equipos.',
 
@@ -83,7 +83,7 @@ class BiblioApusRequest extends FormRequest
             'manosObra.*.datos.cantidad.numeric'    =>  'Error al ingresar la tabla Mano de Obra.',
             'manosObra.*.datos.cantidad.min'        =>  'Error al ingresar la tabla Mano de Obra.',
             'manosObra.*.datos.cantidad.max'        =>  'Error al ingresar la tabla Mano de Obra.',
-            'manosObra.*.datos.rendimiento.integer' =>  'Error al ingresar la tabla Mano de Obra.',
+            'manosObra.*.datos.rendimiento.numeric' =>  'Error al ingresar la tabla Mano de Obra.',
             'manosObra.*.datos.rendimiento.min'     =>  'Error al ingresar la tabla Mano de Obra.',
             'manosObra.*.datos.rendimiento.max'     =>  'Error al ingresar la tabla Mano de Obra.',
 

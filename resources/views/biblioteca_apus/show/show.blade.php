@@ -6,17 +6,15 @@
 
 @section('encabezadoContenido')
 	
-	<div class="box-header">
-		<h2 class="box-title" style="font-size: 30px">Ver APU</h2>
-		
-		<h4>
-			<ol id="bread" class="breadcrumb">
-			  <li><a href="{{ url('biblioteca_apus') }}">APUs</a></li>
-			  <li class="active">Ver</li>
-			</ol>
-		</h4>
+	<section class="content-header">
+		<h1>Ver APU</h1> 
 
-	</div>
+		<ol  class="breadcrumb">
+			<li><a href="{{ url('biblioteca_apus') }}">APUs</a></li>
+			<li class="active">Ver</li>
+		</ol>
+			
+	</section>
 	
 @endsection
 

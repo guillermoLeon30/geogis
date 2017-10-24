@@ -22,7 +22,7 @@ function costoEquipos() {
 
 	for (var i = 0; i < equipos.length; i++) {
 		if (typeof(equipos[i]) !== "undefined") {
-			total=total+equipos[i].datos.cantidad*equipos[i].datos.costoHora*equipos[i].datos.rendimiento/100;	
+			total=total+equipos[i].datos.cantidad*equipos[i].datos.costoHora*equipos[i].datos.rendimiento;	
 		}
 	}
 
@@ -46,7 +46,7 @@ function costoMano() {
 
 	for (var i = 0; i < manos.length; i++) {
 		if (typeof(manos[i]) !== "undefined") {
-			total=total+manos[i].datos.cantidad*manos[i].datos.costo*manos[i].datos.rendimiento/100;
+			total=total+manos[i].datos.cantidad*manos[i].datos.costo*manos[i].datos.rendimiento;
 		}
 	}
 

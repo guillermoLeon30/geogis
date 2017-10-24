@@ -170,7 +170,7 @@ class BibliotecaApus extends Model
     *********************************************************************************/
     public function totalEquipo(){
     	return round($this->equipos->map(function ($equipo, $key){
-    		return $equipo->costo_hora * $equipo->pivot->cantidad * $equipo->pivot->rendimiento/100;
+    		return $equipo->costo_hora * $equipo->pivot->cantidad * $equipo->pivot->rendimiento;
     	})->sum(), 2);
     }
 
@@ -182,7 +182,7 @@ class BibliotecaApus extends Model
 
     public function totalManoDeObra(){
     	return round($this->manoDeObra->map(function ($mano, $key){
-    		return $mano->costo_hora * $mano->pivot->cantidad * $mano->pivot->rendimiento/100;
+    		return $mano->costo_hora * $mano->pivot->cantidad * $mano->pivot->rendimiento;
     	})->sum(), 2);
     }
 
