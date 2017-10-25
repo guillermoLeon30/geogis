@@ -32,6 +32,11 @@ Route::group(['middleware' => 'auth'], function (){
 	Route::resource('transportes', 'TransporteController', ['except' => ['create', 'show']]);
 	Route::resource('biblioteca_apus', 'BiblioApusController');
 	Route::resource('proyecto', 'ProyectoController');
+	//-----------------------------------------------------------------------------------------
 	Route::resource('categoria', 'CategoriaController');
+	Route::prefix('categoria')->group(function (){
+		Route::post('copia/{apu}/{categoria}', 'CategoriaController@copia');
+	});
+	//-----------------------------------------------------------------------------------------
 	Route::resource('apu', 'ApuController');
 });

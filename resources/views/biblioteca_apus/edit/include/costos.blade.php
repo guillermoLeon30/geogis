@@ -1,6 +1,7 @@
 @php
+  $subtotal = $apu->subtotal();
+  $indirectos = $apu->indirectos($subtotal);
   $total = $apu->total();
-  $indirectos = round($total * $apu->por_indirectos / 100, 2);
 @endphp
 
 <div class="box box-primary">
@@ -52,7 +53,7 @@
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input id="totalCostos" type="text" class="form-control" value="{{ $total }}" disabled>
+            <input id="totalCostos" type="text" class="form-control" value="{{ $subtotal }}" disabled>
           </div>
         </div>            
       </div>
@@ -74,7 +75,7 @@
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input id="total" type="text" class="form-control" value="{{ $total + $indirectos }}" disabled>
+            <input id="total" type="text" class="form-control" value="{{ $total }}" disabled>
           </div>
         </div>            
       </div>

@@ -192,7 +192,20 @@ class BibliotecaApus extends Model
     	})->sum(), 2);
     }
 
-    public function total(){
-    	return round($this->totalEquipo() + $this->totalMateriales() + $this->totalManoDeObra() + $this->totalTransportes(), 2);
+    public function subtotal(){
+        return round($this->totalEquipo() + $this->totalMateriales() + $this->totalManoDeObra() + $this->totalTransportes(), 2);
     }
+
+    public function indirectos($subtotal){
+        return round($subtotal * $this->por_indirectos / 100, 2);
+    }
+
+    public function total(){
+        $subtotal = $this->subtotal();
+        $indirectos = $this->indirectos($subtotal);
+
+        return round($subtotal + $indirectos, 2);
+    }
+
+    
 }

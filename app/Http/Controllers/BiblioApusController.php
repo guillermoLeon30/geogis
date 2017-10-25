@@ -28,7 +28,7 @@ class BiblioApusController extends Controller
         }
 
         if (isset($request->todo)) {
-            $elementos = BibliotecaApus::buscar('')->get()->take(20);
+            $elementos = BibliotecaApus::buscar($filtro)->get()->take(20);
 
             return response()->json(['apus' => $elementos]);
         }

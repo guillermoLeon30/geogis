@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
+use App\Models\BibliotecaApus;
 
 class CategoriaController extends Controller
 {
@@ -115,5 +116,22 @@ class CategoriaController extends Controller
 
             return response()->json([], 500);
         }    
+    }
+
+    public function copia(BibliotecaApus $apu, Categoria $categoria)
+    {
+        DB::beginTransaction();
+
+        try {
+            $categoria->copiar($apu);
+            DB::commit();
+
+            return response()->json([], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([], 500);
+        }
+        
     }
 }

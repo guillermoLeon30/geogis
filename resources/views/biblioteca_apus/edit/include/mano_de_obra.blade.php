@@ -34,7 +34,7 @@
                 </td>
                 <td>{{ $mano->pivot->cantidad }}</td>
                 <td>${{ $mano->costo_hora }}</td>
-                <td>{{ $mano->pivot->rendimiento }}%</td>
+                <td>{{ $mano->pivot->rendimiento }}</td>
                 <td>${{ round($mano->costo_hora * $mano->pivot->cantidad * $mano->pivot->rendimiento, 2) }}</td>
                 <td>
                   <button class="btn btn-danger" onclick="quitarMano({{ $mano->id }})">

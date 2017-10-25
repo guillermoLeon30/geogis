@@ -5,7 +5,7 @@ $('#selectCopiar').select2({
 	
 	ajax: {
 		id: function (e) {
-			return elemento.id;
+			return apu.id;
 		},
 		url: '{{ url('biblioteca_apus') }}',
 		type: 'GET',
@@ -14,7 +14,7 @@ $('#selectCopiar').select2({
 		data: function (params) {
 			return {
 				filtro: params.term,
-				fuente: 'equipos',
+				todo: 'todo',
 				page: params.page
 			};
 		},
@@ -22,7 +22,7 @@ $('#selectCopiar').select2({
 			params.page = params.page || 1;
 
 			return {
-				results: data.elementos,
+				results: data.apus,
 				pagination: {
 		          more: (params.page * 20) < data.total_count
 		        }
@@ -30,52 +30,86 @@ $('#selectCopiar').select2({
 		}
 	},
 	cache: true,
-	templateResult: formatProducto,
-	templateSelection: formatRepoProducto,
-	dropdownParent: $('#modalIngresarEquipos')
+	templateResult: formatApu,
+	templateSelection: formatRepoApu,
+	dropdownParent: $('#modalCopiar')
 });
 
-function formatProducto (equipo) {
+function formatApu (apu) {
 
-  if (!equipo.id) { return equipo.text; }
-  var $equipo = $(
+  if (!apu.id) { return apu.text; }
+  var $apu = $(
     	'<span>'+
 			'<table>'+
 				'<tbody>'+
 					'<tr>'+
-						'<td><strong>Descripción: </strong> </td>'+
+						'<td><strong>Nombre: </strong> </td>'+
 						'<td style="width: 100%">'+
-								equipo.descripcion+
+							apu.descripcion+
 						'</td>'+
 					'</tr>'+
 
 					'<tr>'+
-						'<td><strong>Costo/Hora: </strong> </td>'+
-						'<td>'+equipo.costo_hora+'</td>'+
+						'<td><strong>Unidad: </strong> </td>'+
+						'<td>'+apu.unidad+'</td>'+
 					'</tr>'+
 				'</tbody>'+
 			'</table>'+
 		'</span>'
   );
-  return $equipo;
+  return $apu;
 }
 
-function formatRepoProducto(equipo) {
-	if (!equipo.id) { return equipo.text; }
-	var $equipo = $(
+function formatRepoApu(apu) {
+	if (!apu.id) { return apu.text; }
+	var $apu = $(
 	    	'<span>'+
-	    		'<input type="hidden" id="equipoDescripcion" value="'+equipo.descripcion+'">'+
-				equipo.descripcion +
-				'<input type="hidden" id="equipoCostoHora" value="'+equipo.costo_hora+'">'+
-				'<b> Costo/Hora: </b>' + equipo.costo_hora +
+				apu.descripcion +
+				'<b> Unidad: </b>' + apu.unidad +
 			'</span>'
 	);
 
-	return $equipo;
+	return $apu;
 }
 
-$('#selectEquipos').on('select2:open', function (evt) {
+$('#selectCopiar').on('select2:open', function (evt) {
   $('.select2-results__options').css('max-height', '400px');
+});
+
+//---------------------------------COPIAR----------------------------------------------
+$('#formCopiar').submit(function (e) {
+	e.preventDefault();
+	
+	var apu = $('#selectCopiar').val();
+
+	$.ajax({
+		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
+		url: '{{ url('categoria/copia') }}/'+ apu + '/{{ $categoria->id }}' ,
+		type: 'POST',
+		dataType: 'json',
+		beforeSend: function () {
+			$('#btnCopiar').prop('disabled', true);
+		 	$('#btnCopiar').html('<i class="fa fa-refresh fa-spin"></i>');
+		 	$('#modalCopiar .cerrar').removeAttr('data-dismiss');
+		},
+		success: function (data) {
+			var filtro = $('#buscar').val();
+
+			$('#btnCopiar').prop('disabled', false);
+		 	$('#btnCopiar').html('Copiar');
+		 	$('#modalCopiar .cerrar').attr('data-dismiss','modal');
+		 	$('#modalCopiar').modal('hide');
+
+		 	generarTabla(page, filtro);
+		 	//mensaje('ok', data, '#mensaje');
+		},
+		error: function (data) {
+			$('#btnCopiar').prop('disabled', false);
+		 	$('#btnCopiar').html('Copiar');
+		 	$('#modalCopiar .cerrar').attr('data-dismiss','modal');
+		 	mensaje('error', data, '#mensajeCopia');
+		}
+	});
 });
 
 </script>

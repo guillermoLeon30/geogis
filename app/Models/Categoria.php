@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Apu;
 
 class Categoria extends Model
 {
@@ -58,5 +59,80 @@ class Categoria extends Model
             $apu->eliminar();
         });
         $this->delete();
+    }
+
+    /*******************************************************************************
+    *   Funcion para copiar un apu de la biblioteca la proyecto
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function copiar($apu){
+        $equipos = $apu->equipos;
+        $materiales = $apu->materiales;
+        $manoDeObra = $apu->manoDeObra;
+        $transportes = $apu->transportes;
+
+        $apuNuevo = $this->nuevoApu($apu);
+
+        if ($equipos->isNotEmpty()) {
+            $apuNuevo->equipos()->attach($this->formato1Copia($equipos));
+        }
+
+        if ($materiales->isNotEmpty()) {
+            $apuNuevo->materiales()->attach($this->formato2Copia($materiales));
+        }
+
+        if ($manoDeObra->isNotEmpty()) {
+            $apuNuevo->manoDeObra()->attach($this->formato1Copia($manoDeObra));
+        }
+
+        if ($transportes->isNotEmpty()) {
+            $apuNuevo->transportes()->attach($this->formato3Copia($transportes));
+        }
+    }
+
+    public function nuevoApu($apu){
+        $apuNuevo = new Apu();
+        $apuNuevo->categoria_id = $this->id;
+        $apuNuevo->descripcion = $apu->descripcion;
+        $apuNuevo->unidad = $apu->unidad;
+        $apuNuevo->por_indirectos = $apu->por_indirectos;
+        $apuNuevo->save();
+
+        return $apuNuevo;
+    }
+
+    public function formato1Copia($objs){
+        $a = array();
+
+        foreach ($objs as $obj) {
+            $a[$obj->id] = ['costo_hora2'    =>  $obj->costo_hora,
+                            'cantidad'       =>  $obj->pivot->cantidad,
+                            'rendimiento'    =>  $obj->pivot->rendimiento];
+        }
+
+        return $a;
+    }
+
+    public function formato2Copia($objs){
+        $a = array();
+
+        foreach ($objs as $obj) {
+            $a[$obj->id] = ['costo2'    =>  $obj->costo,
+                            'cantidad'  =>  $obj->pivot->cantidad];
+        }
+
+        return $a;
+    }
+
+    public function formato3Copia($objs){
+        $a = array();
+
+        foreach ($objs as $obj) {
+            $a[$obj->id] = ['costo_km2' =>  $obj->costo_km,
+                            'cantidad'  =>  $obj->pivot->cantidad];
+        }
+
+        return $a;
     }
 }

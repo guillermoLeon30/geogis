@@ -100,7 +100,7 @@ function AgregarMano() {
 						'</td>'+
 						'<td>'+ cantidad +'</td>'+
 						'<td>$'+ costoHora +'</td>'+
-						'<td>'+ rendimiento +'%</td>'+
+						'<td>'+ rendimiento +'</td>'+
 						'<td>$'+ total.toFixed(2) +'</td>'+
 						'<td>'+
 							'<button class="btn btn-danger" onclick="quitarMano('+id+')">'+
