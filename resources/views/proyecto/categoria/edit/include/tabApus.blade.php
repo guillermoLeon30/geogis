@@ -54,6 +54,10 @@
                         <span class="glyphicon glyphicon-trash"></span>
                       </button>
                     @endif
+                    <a class="btn btn-info" href="{{ url('apu/excel/'.$apu->id) }}">
+                      <span class="fa fa-print"></span>
+                    </a>
+                    
                   </td>
                 </tr>
               @endforeach

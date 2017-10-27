@@ -39,4 +39,7 @@ Route::group(['middleware' => 'auth'], function (){
 	});
 	//-----------------------------------------------------------------------------------------
 	Route::resource('apu', 'ApuController');
+	Route::prefix('apu')->group(function (){
+		Route::get('excel/{apu}', 'ApuController@exportarExcel');
+	});
 });

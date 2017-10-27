@@ -30,6 +30,9 @@
                         <span class="glyphicon glyphicon-trash"></span>
                       </button>
                     @endif
+                    <button class="btn btn-info" onclick="imprimirApu({{$apu->id}})">
+                      <span class="fa fa-print"></span>
+                    </button>
                   </td>
                 </tr>
               @endforeach
