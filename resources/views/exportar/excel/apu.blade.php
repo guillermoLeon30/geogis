@@ -3,12 +3,43 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>APU</title>
+	@include('exportar.excel.css.apu')
 </head>
 <body>
 	<table>
 		<thead>
 			<tr>
-				<th>Descripcion</th>
+				<th colspan="6">DIRECCION DE OPERACIONES TECNICAS</th>
+			</tr>
+
+			<tr>
+				<th colspan="6">ANALISIS DE PRECIOS UNITARIOS</th>
+			</tr>
+
+			<tr>
+				<th>RUBRO:</th>
+				<td width="8.43">???</td>
+			</tr>
+
+			<tr>
+				<th height="30">DESCRIPCION:</th>
+				<td>{{ $apu->descripcion }}</td>
+			</tr>
+			
+			<tr>
+				<th>UNIDAD:</th>
+				<td>{{ $apu->unidad }}</td>
+			</tr>
+		</thead>
+	</table>
+
+	<table>
+		<thead>
+			<tr>
+				<th colspan="6">EQUIPOS</th>
+			</tr>
+			<tr>
+				<th colspan="2">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Costo/Hr</th>
 				<th>Rendimiento</th>
@@ -19,7 +50,7 @@
 		<tbody>
 			@foreach($apu->equipos as $equipo)
 				<tr>
-					<td>{{ $equipo->descripcion }}</td>
+					<td colspan="2">{{ $equipo->descripcion }}</td>
 					<td>{{ $equipo->pivot->cantidad }}</td>
 					<td>{{ $equipo->pivot->costo_hora2 }}</td>
 					<td>{{ $equipo->pivot->rendimiento }}</td>
@@ -27,12 +58,23 @@
 				</tr>
 			@endforeach
 		</tbody>
+
+		<tfoot>
+			<tr>
+				<td></td><td></td><td></td><td></td>
+				<th>Subtotal</th>
+				<td>{{ $apu->totalEquipo() }}</td>
+			</tr>
+		</tfoot>
 	</table>
 
 	<table>
 		<thead>
 			<tr>
-				<th>Descripcion</th>
+				<th colspan="6">MANO DE OBRA</th>
+			</tr>
+			<tr>
+				<th colspan="2">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Jornal/Hr</th>
 				<th>Rendimiento</th>
@@ -43,7 +85,7 @@
 		<tbody>
 			@foreach($apu->manoDeObra as $mano)
 				<tr>
-					<td>{{ $mano->descripcion }}</td>
+					<td colspan="2">{{ $mano->descripcion }}</td>
 					<td>{{ $mano->pivot->cantidad }}</td>
 					<td>{{ $mano->pivot->costo_hora2 }}</td>
 					<td>{{ $mano->pivot->rendimiento }}</td>
@@ -51,12 +93,24 @@
 				</tr>
 			@endforeach
 		</tbody>
+
+		<tfoot>
+			<tr>
+				<td></td><td></td><td></td><td></td>
+				<th>Subtotal</th>
+				<td>{{ $apu->totalManoDeObra() }}</td>
+			</tr>
+		</tfoot>
 	</table>
 
 	<table>
 		<thead>
 			<tr>
-				<th>Descripcion</th>
+				<th colspan="6">MATERIALES</th>	
+			</tr>
+
+			<tr>
+				<th colspan="2">Descripcion</th>
 				<th>Unidad</th>
 				<th>Costo/Unidad</th>
 				<th>Cantidad</th>
@@ -67,7 +121,7 @@
 		<tbody>
 			@foreach($apu->materiales as $material)
 				<tr>
-					<td>{{ $material->descripcion }}</td>
+					<td colspan="2">{{ $material->descripcion }}</td>
 					<td>{{ $material->unidad }}</td>
 					<td>{{ $material->pivot->costo2 }}</td>
 					<td>{{ $material->pivot->cantidad }}</td>
@@ -75,12 +129,23 @@
 				</tr>
 			@endforeach
 		</tbody>
+
+		<tfoot>
+			<tr>
+				<td></td><td></td><td></td><td></td>
+				<th>Subtotal</th>
+				<td>{{ $apu->totalMateriales() }}</td>
+			</tr>
+		</tfoot>
 	</table>
 
 	<table>
 		<thead>
 			<tr>
-				<th>Descripcion</th>
+				<th colspan="6">TRANSPORTES</th>
+			</tr>
+			<tr>
+				<th colspan="2">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Tarifa(M3/KM)</th>
 				<th>Distancia(Km)</th>
@@ -91,7 +156,7 @@
 		<tbody>
 			@foreach($apu->transportes as $transporte)
 				<tr>
-					<td>{{ $transporte->descripcion }}</td>
+					<td colspan="2">{{ $transporte->descripcion }}</td>
 					<td>{{ $transporte->pivot->cantidad }}</td>
 					<td>{{ $transporte->pivot->costo_km2 }}</td>
 					<td>{{ $transporte->unidad }}</td>
@@ -99,6 +164,36 @@
 				</tr>
 			@endforeach
 		</tbody>
+
+		<tfoot>
+			<tr>
+				<td></td><td></td><td></td><td></td>
+				<th>Subtotal</th>
+				<td>{{ $apu->totalTransportes() }}</td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td colspan="2">TOTAL COSTO DIRECTO</td>
+				<td>{{ $apu->total() }}</td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td>INDIRECTOS%</td>
+				<td>{{ $apu->por_indirectos }}</td>
+				<td>{{ $apu->totalIndirectos() }}</td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td>UTILIDAD%</td>
+				<td>{{ $apu->por_utilidad }}</td>
+				<td>{{ $apu->totalUtilidad() }}</td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td colspan="2">COSTO TOTAL DEL RUBRO</td>
+				<td>{{ $apu->totalGeneral() }}</td>
+			</tr>
+		</tfoot>
 	</table>
 </body>
 </html>

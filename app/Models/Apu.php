@@ -67,6 +67,18 @@ class Apu extends Model
     	return round($this->totalEquipo() + $this->totalMateriales() + $this->totalManoDeObra() + $this->totalTransportes(), 2);
     }
 
+    public function totalIndirectos(){
+        $subtotal = $this->total();
+        
+        return round($subtotal * $this->por_indirectos / 100, 2);
+    }
+
+    public function totalUtilidad(){
+        $subtotal = $this->total();
+        
+        return $utilidad = round($subtotal * $this->por_utilidad / 100, 2);
+    }
+
     public function totalGeneral(){
         $subtotal = $this->total();
         $indirectos = round($subtotal * $this->por_indirectos / 100, 2);
