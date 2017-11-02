@@ -11,3 +11,5 @@ npm-debug.log
 .env
 *.sublime-workspace
 composer.lock
+
+*.sublime-project
