@@ -7,6 +7,7 @@ use App\Models\Equipo;
 use App\Models\Material;
 use App\Models\ManoDeObra;
 use App\Models\Transporte;
+use Excel;
 
 class Apu extends Model
 {
@@ -174,7 +175,7 @@ class Apu extends Model
         return $a;
     }
 
-     /*******************************************************************************
+    /*******************************************************************************
     *   Funcion para eliminar apu
     *   @in 
     *   @out 
@@ -185,5 +186,37 @@ class Apu extends Model
         $this->manoDeObra()->detach();
         $this->transportes()->detach();
         $this->delete();
+    }
+
+    /*******************************************************************************
+    *   Funcion para exportar un archivo de excel
+    *   @in 
+    *   @out 
+    *********************************************************************************/
+    public function excel()
+    {
+        Excel::create('apu', function ($excel){
+            $excel->sheet('hoja1', function ($sheet){
+                $sheet->mergeCells('A1:G1', 'center');
+                $sheet->mergeCells('A2:G2', 'center');
+                $sheet->mergeCells('B4:G4');
+                $sheet->getStyle('B4')->getAlignment()->setWrapText(true);
+                //$sheet->getStyle('A4')->getAlignment()->setWrapText(true);
+                $sheet->getDefaultRowDimension('4')->setRowHeight(-1);
+                //$sheet->getStyle('B4' , $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+                //$sheet->cell('B4', function($cell) {
+                //    $cell->setAutoSize(true);
+                //});
+
+                $sheet->fromArray(array(
+                    array('DIRECCION DE OPERACIONES TECNICAS'),
+                    array('ANALISIS DE PRECIOS UNITARIOS'),
+                    array('RUBRO:', '????'),
+                    array('DESCRIPCIÓN:', $this->descripcion)
+                ), null, 'A1', false, false);
+                //$sheet->loadView('exportar.excel.apu')->with('apu', $this);
+
+            });
+        })->export('xlsx');
     }
 }
