@@ -200,65 +200,78 @@ class Apu extends Model
                     array('DIRECCION DE OPERACIONES TECNICAS'),
                     array('ANALISIS DE PRECIOS UNITARIOS'),
                     array('RUBRO:', '????'),
-                    array('DESCRIPCIÓN:', $this->descripcion)
+                    array('DESCRIPCIÓN:', $this->descripcion),
+                    array('UNIDAD: ', $this->unidad)
                 ), null, 'A1', false, false);
                 $sheet->mergeCells('A1:G1', 'center');
                 $sheet->mergeCells('A2:G2', 'center');
-                $sheet->mergeCells('B4:G4');
+                $sheet->mergeCells('B3:G3', 'left');
+                $sheet->mergeCells('B4:G4', 'left');
+                $sheet->mergeCells('B5:G5');
                 $sheet->getCell('A4')->getStyle()->getAlignment()->setVertical('center');
                 $sheet->getCell('B4')->getStyle()->getAlignment()->setVertical('top');
-                $sheet->getStyle('A1:A4')->applyFromArray($this->estilo());
+                $sheet->getStyle('A1:A2')->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A3:A5')->applyFromArray($this->estiloTotales());
+                $sheet->getStyle('B3:B5')->applyFromArray($this->estiloTabla());
                 //------------------------EQUIPOS-----------------------
                 $tEquipos = $this->getEquiposForExcel();
                 $sheet->rows($tEquipos);
-                $sheet->mergeCells('A5:G5', 'center');
-                $sheet->mergeCells('A6:C6', 'center');
+                $sheet->mergeCells('A6:G6', 'center');
+                $sheet->mergeCells('A7:C7', 'center');
                 
                 $filas = count($tEquipos)-3;
-                $inicio = 7;
+                $inicio = 8;
                 $this->darFormatoTablaExcel($filas, $inicio, $tEquipos, $sheet);
-                $sheet->getStyle('A5')->applyFromArray($this->estilo());
-                $sheet->getStyle('A6:G6')->applyFromArray($this->estilo());
+                $sheet->getStyle('A6')->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A7:G7')->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.$inicio.':G'.($inicio+$filas-1))->applyFromArray($this->estiloTabla());
+                $sheet->getStyle('F'.($inicio+$filas).':G'.($inicio+$filas))->applyFromArray($this->estiloTabla());
 
                 //-------------------------------------------------------
                 //------------------MANO DE OBRA-------------------------
                 $tMano = $this->getManoObForExcel();
                 $sheet->rows($tMano);
-                $inicio = count($tEquipos) + 1 + 4;
+                $inicio = count($tEquipos) + 1 + 5;
                 $sheet->mergeCells('A'.$inicio.':G'.$inicio, 'center');
                 $sheet->mergeCells('A'.($inicio + 1).':C'.($inicio + 1), 'center');
 
                 $filas = count($tMano)-3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tMano, $sheet);
-                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
-                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.$inicio.':G'.($inicio+$filas-1))->applyFromArray($this->estiloTabla());
+                $sheet->getStyle('F'.($inicio+$filas).':G'.($inicio+$filas))->applyFromArray($this->estiloTabla());
                 //-----------------------------------------------------------
                 //----------------------MATERIALES---------------------------
                 $tMateriales = $this->getMaterialesForExcel();
                 $sheet->rows($tMateriales);
-                $inicio = 4 + count($tEquipos) + count($tMano) + 1;
+                $inicio = 5 + count($tEquipos) + count($tMano) + 1;
                 $sheet->mergeCells('A'.$inicio.':G'.$inicio, 'center');
                 $sheet->mergeCells('A'.($inicio + 1).':C'.($inicio + 1), 'center');
 
                 $filas = count($tMateriales) - 3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tMateriales, $sheet);
-                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
-                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.$inicio.':G'.($inicio+$filas-1))->applyFromArray($this->estiloTabla());
+                $sheet->getStyle('F'.($inicio+$filas).':G'.($inicio+$filas))->applyFromArray($this->estiloTabla());
                 //------------------------------------------------------------
                 //---------------------TRANSPORTES----------------------------
                 $tTranportes = $this->getTransportesForExcel();
                 $sheet->rows($tTranportes);
-                $inicio = 4 + count($tEquipos) + count($tMano) + count($tMateriales) + 1;
+                $inicio = 5 + count($tEquipos) + count($tMano) + count($tMateriales) + 1;
                 $sheet->mergeCells('A'.$inicio.':G'.$inicio, 'center');
                 $sheet->mergeCells('A'.($inicio + 1).':C'.($inicio + 1), 'center');
 
                 $filas = count($tTranportes) - 3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tTranportes, $sheet);
-                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
-                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A'.$inicio.':G'.($inicio+$filas-1))->applyFromArray($this->estiloTabla());
+                $sheet->getStyle('F'.($inicio+$filas).':G'.($inicio+$filas))->applyFromArray($this->estiloTabla());
                 //-------------------------------------------------------------
                 //-----------------------TOTALES------------------------------
                 $subtotal = sprintf('%.2f', $this->total());
@@ -272,12 +285,13 @@ class Apu extends Model
                     ['', '', '', 'UTILIDAD '.$this->por_utilidad.'%', '', '', $utilidad],
                     ['', '', '', 'COSTO TOTAL', '', '', $total]
                 ]);
-                $inicio = 4+count($tEquipos)+count($tMano)+count($tMateriales)+count($tTranportes)+1;
+                $inicio = 5+count($tEquipos)+count($tMano)+count($tMateriales)+count($tTranportes)+1;
                 $sheet->mergeCells('D'.$inicio.':F'.$inicio);
                 $sheet->mergeCells('D'.($inicio + 1).':F'.($inicio + 1));
                 $sheet->mergeCells('D'.($inicio + 2).':F'.($inicio + 2));
                 $sheet->mergeCells('D'.($inicio + 3).':F'.($inicio + 3));
-                $sheet->getStyle('D'.($inicio).':D'.($inicio+4))->applyFromArray($this->estilo());
+                $sheet->getStyle('D'.($inicio).':D'.($inicio+3))->applyFromArray($this->estiloTotales());
+                $sheet->getStyle('G'.($inicio).':G'.($inicio+3))->applyFromArray($this->estiloTabla());
                 //-------------------------------------------------------------
                 //-----------------------GENERAL-----------------------------
                 $sheet->setAutoSize(['D', 'E', 'F', 'G']);
@@ -292,11 +306,12 @@ class Apu extends Model
                 $cg = $sheet->getColumnDimension('G')->getWidth();
                 $ctotal = intval(floor($cb + $cc + $cd + $ce + $cf + $cg));
                 
-                $sheet->getStyle('B4')->getAlignment()->setWrapText(true);
-                //$sheet->setHeight(4, $this->altoFila($this->descripcion, $ctotal));
-                $sheet->setHeight(4, $this->altoFila($this->descripcion, 32));
-
-
+                $sheet->getStyle('B5')->getAlignment()->setWrapText(true);
+                $sheet->setHeight(5, $this->altoFila($this->descripcion, $ctotal));
+                // Set top, right, bottom, left
+                $sheet->setPageMargin(array(
+                    0.75, 0.70, 0.75, 0.70
+                ));
 
             });
         })->export('xlsx');
@@ -312,19 +327,47 @@ class Apu extends Model
         for ($i=0; $i < $filas; $i++) { 
             $descripcion = $arr[$i+2][0];
             $alto = $this->altoFila($descripcion, 30.86);
-            $sheet->setHeight($inicio, $alto);
+            $sheet->setHeight($inicio + $i, $alto);
             $sheet->mergeCells('A'.($i + $inicio).':C'.($i + $inicio));
             $sheet->getStyle('A'.($i + $inicio))->getAlignment()->setWrapText(true);
         }
     }
 
-    public function estilo(){
+    public function estiloEncabezado(){
         return array(
             'font' => array(
                 'bold' => true,
             ),
             'alignment' => array(
                 'horizontal' => 'center',
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',
+                ),
+            )
+        );
+    }
+
+    public function estiloTabla(){
+        return array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',
+                ),
+            )
+        );
+    }
+
+     public function estiloTotales(){
+        return array(
+            'font' => array(
+                'bold' => true,
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',
+                ),
             )
         );
     }
