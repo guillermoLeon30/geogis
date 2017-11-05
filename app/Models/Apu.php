@@ -207,23 +207,19 @@ class Apu extends Model
                 $sheet->mergeCells('B4:G4');
                 $sheet->getCell('A4')->getStyle()->getAlignment()->setVertical('center');
                 $sheet->getCell('B4')->getStyle()->getAlignment()->setVertical('top');
-                
+                $sheet->getStyle('A1:A4')->applyFromArray($this->estilo());
                 //------------------------EQUIPOS-----------------------
                 $tEquipos = $this->getEquiposForExcel();
                 $sheet->rows($tEquipos);
                 $sheet->mergeCells('A5:G5', 'center');
                 $sheet->mergeCells('A6:C6', 'center');
-                $sheet->getCell('D6')->getStyle()->getAlignment()->setHorizontal('center');
-                $sheet->getCell('E6')->getStyle()->getAlignment()->setHorizontal('center');
-                $sheet->getCell('F6')->getStyle()->getAlignment()->setHorizontal('center');
-                $sheet->getCell('G6')->getStyle()->getAlignment()->setHorizontal('center');
-                $sheet->cells('A6:G6', function($cells) {
-                    $cells->setFontWeight('bold');
-                });
                 
                 $filas = count($tEquipos)-3;
                 $inicio = 7;
                 $this->darFormatoTablaExcel($filas, $inicio, $tEquipos, $sheet);
+                $sheet->getStyle('A5')->applyFromArray($this->estilo());
+                $sheet->getStyle('A6:G6')->applyFromArray($this->estilo());
+
                 //-------------------------------------------------------
                 //------------------MANO DE OBRA-------------------------
                 $tMano = $this->getManoObForExcel();
@@ -235,6 +231,8 @@ class Apu extends Model
                 $filas = count($tMano)-3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tMano, $sheet);
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
                 //-----------------------------------------------------------
                 //----------------------MATERIALES---------------------------
                 $tMateriales = $this->getMaterialesForExcel();
@@ -246,6 +244,8 @@ class Apu extends Model
                 $filas = count($tMateriales) - 3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tMateriales, $sheet);
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
                 //------------------------------------------------------------
                 //---------------------TRANSPORTES----------------------------
                 $tTranportes = $this->getTransportesForExcel();
@@ -257,6 +257,8 @@ class Apu extends Model
                 $filas = count($tTranportes) - 3;
                 $inicio = $inicio + 2;
                 $this->darFormatoTablaExcel($filas, $inicio, $tTranportes, $sheet);
+                $sheet->getStyle('A'.($inicio - 2))->applyFromArray($this->estilo());
+                $sheet->getStyle('A'.($inicio-1).':G'.($inicio-1))->applyFromArray($this->estilo());
                 //-------------------------------------------------------------
                 //-----------------------TOTALES------------------------------
                 $subtotal = sprintf('%.2f', $this->total());
@@ -275,6 +277,7 @@ class Apu extends Model
                 $sheet->mergeCells('D'.($inicio + 1).':F'.($inicio + 1));
                 $sheet->mergeCells('D'.($inicio + 2).':F'.($inicio + 2));
                 $sheet->mergeCells('D'.($inicio + 3).':F'.($inicio + 3));
+                $sheet->getStyle('D'.($inicio).':D'.($inicio+4))->applyFromArray($this->estilo());
                 //-------------------------------------------------------------
                 //-----------------------GENERAL-----------------------------
                 $sheet->setAutoSize(['D', 'E', 'F', 'G']);
@@ -313,6 +316,17 @@ class Apu extends Model
             $sheet->mergeCells('A'.($i + $inicio).':C'.($i + $inicio));
             $sheet->getStyle('A'.($i + $inicio))->getAlignment()->setWrapText(true);
         }
+    }
+
+    public function estilo(){
+        return array(
+            'font' => array(
+                'bold' => true,
+            ),
+            'alignment' => array(
+                'horizontal' => 'center',
+            )
+        );
     }
 
     public function getEquiposForExcel(){
