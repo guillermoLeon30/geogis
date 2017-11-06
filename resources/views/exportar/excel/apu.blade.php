@@ -9,11 +9,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6">DIRECCION DE OPERACIONES TECNICAS</th>
+				<th>DIRECCION DE OPERACIONES TECNICAS</th>
 			</tr>
 
 			<tr>
-				<th colspan="6">ANALISIS DE PRECIOS UNITARIOS</th>
+				<th>ANALISIS DE PRECIOS UNITARIOS</th>
 			</tr>
 
 			<tr>
@@ -36,10 +36,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6">EQUIPOS</th>
+				<th colspan="7">EQUIPOS</th>
 			</tr>
 			<tr>
-				<th colspan="2">Descripcion</th>
+				<th colspan="3">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Costo/Hr</th>
 				<th>Rendimiento</th>
@@ -50,7 +50,7 @@
 		<tbody>
 			@foreach($apu->equipos as $equipo)
 				<tr>
-					<td colspan="2">{{ $equipo->descripcion }}</td>
+					<td colspan="3">{{ $equipo->descripcion }}</td>
 					<td>{{ $equipo->pivot->cantidad }}</td>
 					<td>{{ $equipo->pivot->costo_hora2 }}</td>
 					<td>{{ $equipo->pivot->rendimiento }}</td>
@@ -71,10 +71,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6">MANO DE OBRA</th>
+				<th colspan="7">MANO DE OBRA</th>
 			</tr>
 			<tr>
-				<th colspan="2">Descripcion</th>
+				<th colspan="3">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Jornal/Hr</th>
 				<th>Rendimiento</th>
@@ -85,7 +85,7 @@
 		<tbody>
 			@foreach($apu->manoDeObra as $mano)
 				<tr>
-					<td colspan="2">{{ $mano->descripcion }}</td>
+					<td colspan="3">{{ $mano->descripcion }}</td>
 					<td>{{ $mano->pivot->cantidad }}</td>
 					<td>{{ $mano->pivot->costo_hora2 }}</td>
 					<td>{{ $mano->pivot->rendimiento }}</td>
@@ -106,11 +106,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6">MATERIALES</th>	
+				<th colspan="7">MATERIALES</th>	
 			</tr>
 
 			<tr>
-				<th colspan="2">Descripcion</th>
+				<th colspan="3">Descripcion</th>
 				<th>Unidad</th>
 				<th>Costo/Unidad</th>
 				<th>Cantidad</th>
@@ -121,7 +121,7 @@
 		<tbody>
 			@foreach($apu->materiales as $material)
 				<tr>
-					<td colspan="2">{{ $material->descripcion }}</td>
+					<td colspan="3">{{ $material->descripcion }}</td>
 					<td>{{ $material->unidad }}</td>
 					<td>{{ $material->pivot->costo2 }}</td>
 					<td>{{ $material->pivot->cantidad }}</td>
@@ -142,10 +142,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6">TRANSPORTES</th>
+				<th colspan="7">TRANSPORTES</th>
 			</tr>
 			<tr>
-				<th colspan="2">Descripcion</th>
+				<th colspan="3">Descripcion</th>
 				<th>Cantidad</th>
 				<th>Tarifa(M3/KM)</th>
 				<th>Distancia(Km)</th>
@@ -156,7 +156,7 @@
 		<tbody>
 			@foreach($apu->transportes as $transporte)
 				<tr>
-					<td colspan="2">{{ $transporte->descripcion }}</td>
+					<td colspan="3">{{ $transporte->descripcion }}</td>
 					<td>{{ $transporte->pivot->cantidad }}</td>
 					<td>{{ $transporte->pivot->costo_km2 }}</td>
 					<td>{{ $transporte->unidad }}</td>

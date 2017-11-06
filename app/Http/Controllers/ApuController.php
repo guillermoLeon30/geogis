@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Excel;
 use App\Http\Requests\ApuRequest;
 use App\Http\Requests\ApuUpdateRequest;
 use App\Models\Apu;
@@ -120,17 +119,6 @@ class ApuController extends Controller
 
     public function exportarExcel(Apu $apu)
     {
-        Excel::create('apu', function ($excel) use($apu){
-            $excel->sheet('Hoja1', function ($sheet) use($apu){
-                // Set top, right, bottom, left
-                $sheet->setPageMargin(array(
-                    0.74, 0.7, 0.74, 0.70
-                ));
-                $sheet->mergeCells('B4:F4', 'justify');
-                //$sheet->setWidth('B', 8.43);
-                $sheet->loadView('exportar.excel.apu')->with('apu', $apu);
-                
-            });
-        })->export('xlsx');
+        $apu->excel();
     }
 }
