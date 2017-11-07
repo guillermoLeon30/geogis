@@ -156,8 +156,12 @@ class Proyecto extends Model
                 $sheet->fromArray($this->getProyectosForExcel(), null, 'A1', false, false);
             });
 
-            foreach ($this->categorias->apus as $apu) {
-                $apu->hoja($sheet);
+            $i=1;
+            foreach ($this->categorias as $categoria) {
+                foreach ($categoria->apus as $apu) {
+                    $apu->hoja($excel, $i);
+                    $i++;
+                }
             }
         })->export('xlsx');
     }
