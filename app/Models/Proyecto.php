@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Excel;
 
 class Proyecto extends Model
 {
@@ -142,5 +143,41 @@ class Proyecto extends Model
         });
         $this->usuarios()->detach();
         $this->delete();
+    }
+
+    /*******************************************************************************
+    *   Funcion para imprimir excel
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function excel(){
+        Excel::create('proyecto', function ($excel){
+            $excel->sheet('proyecto', function ($sheet){
+                $sheet->fromArray($this->getProyectosForExcel(), null, 'A1', false, false);
+            });
+
+            foreach ($this->categorias->apus as $apu) {
+                $apu->hoja($sheet);
+            }
+        })->export('xlsx');
+    }
+
+    public function getProyectosForExcel(){
+        $campos = ['ITEM', 'RUBRO', 'UNIDAD', 'CANTIDAD DE OBRA', 'PRECIO UNITARIO', 'PRECIO TOTAL'];
+        $a = array($campos);
+
+        foreach ($this->categorias as $categoria) {
+            array_push($a, [$categoria->nombre]);
+            foreach ($categoria->apus as $apu) {
+                $cantidad = sprintf('%.2f', $apu->cantidad);
+                $tg = $apu->totalGeneral();
+                $pu = sprintf('%.2f', $tg);
+                $total = sprintf('%.2f', ($apu->cantidad * $tg));
+                $fila = ['???', $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
+                array_push($a, $fila);
+            }
+        }
+
+        return $a;
     }
 }
