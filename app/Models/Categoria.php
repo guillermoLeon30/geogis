@@ -164,4 +164,32 @@ class Categoria extends Model
 
         return $a;
     }
+
+    /*******************************************************************************
+    *   Funcion para mover la posicion del codigo hacia arriba o sea hacia 1
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function moverCodigoArriba(){
+        $categoriaAnterior = Categoria::where([['proyecto_id', $this->proyecto_id],
+                                               ['codigo', $this->codigo - 1]])->get()->last();
+        $categoriaAnterior->codigo = $this->codigo;
+        $categoriaAnterior->save();
+        $this->codigo = $this->codigo - 1;
+        $this->save();
+    }
+
+    /*******************************************************************************
+    *   Funcion para mover la posicion del codigo hacia arriba o sea hacia 1
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function moverCodigoAbajo(){
+        $categoriaSiguiente = Categoria::where([['proyecto_id', $this->proyecto_id],
+                                                ['codigo', $this->codigo + 1]])->get()->last();
+        $categoriaSiguiente->codigo = $this->codigo;
+        $categoriaSiguiente->save();
+        $this->codigo = $this->codigo + 1;
+        $this->save();
+    }
 }

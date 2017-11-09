@@ -64,5 +64,6 @@
 	@include('proyecto.edit.js.jsModalEliminarCategoria')
 	@include('proyecto.edit.js.jsTabDatos')
 	@include('proyecto.edit.js.jsTabPermisos')
+	@include('proyecto.edit.js.jsMover')
 	@include('proyecto.edit.js.jsPrincipal')
 @endpush

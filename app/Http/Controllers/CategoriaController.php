@@ -132,6 +132,37 @@ class CategoriaController extends Controller
 
             return response()->json([], 500);
         }
-        
+    }
+
+    public function moverArriba(Categoria $categoria)
+    {
+        DB::beginTransaction();
+
+        try {
+            $categoria->moverCodigoArriba();
+            DB::commit();
+
+            return response()->json([], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([], 500);
+        }
+    }
+
+    public function moverAbajo(Categoria $categoria)
+    {
+        DB::beginTransaction();
+
+        try {
+            $categoria->moverCodigoAbajo();
+            DB::commit();
+
+            return response()->json([], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([], 500);
+        }
     }
 }
