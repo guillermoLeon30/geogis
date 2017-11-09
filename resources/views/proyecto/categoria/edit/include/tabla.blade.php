@@ -30,9 +30,9 @@
                         <span class="glyphicon glyphicon-trash"></span>
                       </button>
                     @endif
-                    <button class="btn btn-info" onclick="imprimirApu({{$apu->id}})">
+                    <a class="btn btn-info" href="{{ url('apu/excel/'.$apu->id) }}">
                       <span class="fa fa-print"></span>
-                    </button>
+                    </a>
                   </td>
                 </tr>
               @endforeach

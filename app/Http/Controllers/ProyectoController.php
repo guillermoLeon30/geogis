@@ -160,4 +160,9 @@ class ProyectoController extends Controller
             return response()->json([], 500);   
         }
     }
+
+    public function excel(Proyecto $proyecto)
+    {
+        $proyecto->excel();
+    }
 }

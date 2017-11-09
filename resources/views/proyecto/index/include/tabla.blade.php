@@ -28,6 +28,10 @@
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</button>
 						@endif
+
+						<a class="btn btn-info" href="{{ url('proyecto/excel/'.$p->id) }}">
+	                      <span class="fa fa-print"></span>
+	                    </a>
 					</td>
 				</tr>
 			@endforeach

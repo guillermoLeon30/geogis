@@ -31,7 +31,11 @@ Route::group(['middleware' => 'auth'], function (){
 	Route::resource('mano_de_obra', 'ManoDeObraController', ['except' => ['create', 'show']]);
 	Route::resource('transportes', 'TransporteController', ['except' => ['create', 'show']]);
 	Route::resource('biblioteca_apus', 'BiblioApusController');
+	//----------------------------------------------------------------------------------------
 	Route::resource('proyecto', 'ProyectoController');
+	Route::prefix('proyecto')->group(function (){
+		Route::get('excel/{proyecto}', 'ProyectoController@excel');
+	});
 	//-----------------------------------------------------------------------------------------
 	Route::resource('categoria', 'CategoriaController');
 	Route::prefix('categoria')->group(function (){
