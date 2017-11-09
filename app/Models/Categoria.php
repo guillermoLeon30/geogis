@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Apu;
+use App\Models\Proyecto;
 
 class Categoria extends Model
 {
@@ -59,6 +60,34 @@ class Categoria extends Model
             $apu->eliminar();
         });
         $this->delete();
+        $this->actualizarCodigos();
+    }
+
+    public function actualizarCodigos(){
+        $i=1;
+        foreach ($this->proyecto->categorias->sortBy('codigo') as $categoria) {
+            $categoria->codigo=$i;
+            $categoria->save();
+            $i++;
+        }
+    }
+
+    /*******************************************************************************
+    *   Funcion crear categoria
+    *   @in  $request->all()
+    *   @out  
+    *********************************************************************************/
+    public static function crear($datos){
+        $categoria = new Categoria($datos);
+        $categoria->codigo = Categoria::generarCodigo($datos['proyecto_id']);
+        //dump($categoria);
+        $categoria->save();
+    }
+
+    public static function generarCodigo($proyecto_id){
+        $codigo = Proyecto::findOrFail($proyecto_id)->categorias->max('codigo');
+
+        return (is_null($codigo))?1:$codigo+1;
     }
 
     /*******************************************************************************

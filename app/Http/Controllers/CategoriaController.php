@@ -38,7 +38,7 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaRequest $request)
     {
-        Categoria::create($request->all());
+        Categoria::crear($request->all());
 
         return response()->json(['mensaje' => 'Se ingreso correctamente el registro.']);
     }
