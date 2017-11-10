@@ -27,7 +27,8 @@ class Categoria extends Model
     *********************************************************************************/
     public function buscarApus($buscar){
         return $this->hasMany('App\Models\Apu')
-                    ->where('descripcion', 'like', '%'.$buscar.'%');
+                    ->where('descripcion', 'like', '%'.$buscar.'%')
+                    ->orderBy('codigo');
     }
     /*******************************************************************************
     *   Funcion para actualizar los datos
@@ -80,7 +81,6 @@ class Categoria extends Model
     public static function crear($datos){
         $categoria = new Categoria($datos);
         $categoria->codigo = Categoria::generarCodigo($datos['proyecto_id']);
-        //dump($categoria);
         $categoria->save();
     }
 
@@ -92,7 +92,7 @@ class Categoria extends Model
 
     /*******************************************************************************
     *   Funcion para copiar un apu de la biblioteca la proyecto
-    *   @in  
+    *   @in  Biblioteca Apus $apu
     *   @out  
     *********************************************************************************/
     public function copiar($apu){
@@ -123,6 +123,7 @@ class Categoria extends Model
     public function nuevoApu($apu){
         $apuNuevo = new Apu();
         $apuNuevo->categoria_id = $this->id;
+        $apuNuevo->codigo = $apuNuevo->generarCodigo($this->id);
         $apuNuevo->descripcion = $apu->descripcion;
         $apuNuevo->unidad = $apu->unidad;
         $apuNuevo->por_indirectos = $apu->por_indirectos;
@@ -191,5 +192,14 @@ class Categoria extends Model
         $categoriaSiguiente->save();
         $this->codigo = $this->codigo + 1;
         $this->save();
+    }
+
+    /*******************************************************************************
+    *   Funcion para obtener la ultima categoria
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public static function ultima($proyecto){
+        return $proyecto->categorias->sortBy('codigo')->last();
     }
 }

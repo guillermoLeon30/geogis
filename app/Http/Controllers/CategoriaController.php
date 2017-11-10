@@ -129,40 +129,48 @@ class CategoriaController extends Controller
             return response()->json([], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-
+            dd($e);
             return response()->json([], 500);
         }
     }
 
     public function moverArriba(Categoria $categoria)
     {
-        DB::beginTransaction();
+        if ($categoria->codigo != 1) {
+            DB::beginTransaction();
 
-        try {
-            $categoria->moverCodigoArriba();
-            DB::commit();
+            try {
+                $categoria->moverCodigoArriba();
+                DB::commit();
 
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }    
+        }else{
             return response()->json([], 200);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return response()->json([], 500);
         }
     }
 
     public function moverAbajo(Categoria $categoria)
     {
-        DB::beginTransaction();
+        if (Categoria::ultima($categoria->proyecto)->codigo != $categoria->codigo) {
+            DB::beginTransaction();
 
-        try {
-            $categoria->moverCodigoAbajo();
-            DB::commit();
+            try {
+                $categoria->moverCodigoAbajo();
+                DB::commit();
 
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }
+        }else{
             return response()->json([], 200);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return response()->json([], 500);
         }
     }
 }

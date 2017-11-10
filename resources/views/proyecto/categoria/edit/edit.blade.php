@@ -56,4 +56,5 @@
 	@include('proyecto.categoria.edit.js.jsModalCopiarApu')
 	@include('proyecto.categoria.edit.js.jsModalEliminar')
 	@include('proyecto.categoria.edit.js.jsPrincipal')
+	@include('proyecto.categoria.edit.js.jsMover')
 @endpush
