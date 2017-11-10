@@ -41,7 +41,7 @@ class ApuController extends Controller
      */
     public function store(ApuRequest $request)
     {
-        Apu::create($request->all());
+        Apu::crear($request->all());
 
         return response()->json([], 200);
     }
@@ -120,5 +120,45 @@ class ApuController extends Controller
     public function exportarExcel(Apu $apu)
     {
         $apu->excel();
+    }
+
+    public function moverArriba(Apu $apu)
+    {
+        if ($apu->codigo != 1) {
+            DB::beginTransaction();
+
+            try {
+                $apu->moverCodigoArriba();
+                DB::commit();
+
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }    
+        }else{
+            return response()->json([], 200);
+        }
+    }
+
+    public function moverAbajo(Apu $apu)
+    {
+        if (Apu::ultima($apu)->codigo != $apu->codigo) {
+            DB::beginTransaction();
+
+            try {
+                $apu->moverCodigoAbajo();
+                DB::commit();
+
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }
+        }else{
+            return response()->json([], 200);
+        }
     }
 }

@@ -38,7 +38,7 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaRequest $request)
     {
-        Categoria::create($request->all());
+        Categoria::crear($request->all());
 
         return response()->json(['mensaje' => 'Se ingreso correctamente el registro.']);
     }
@@ -129,9 +129,48 @@ class CategoriaController extends Controller
             return response()->json([], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-
+            dd($e);
             return response()->json([], 500);
         }
-        
+    }
+
+    public function moverArriba(Categoria $categoria)
+    {
+        if ($categoria->codigo != 1) {
+            DB::beginTransaction();
+
+            try {
+                $categoria->moverCodigoArriba();
+                DB::commit();
+
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }    
+        }else{
+            return response()->json([], 200);
+        }
+    }
+
+    public function moverAbajo(Categoria $categoria)
+    {
+        if (Categoria::ultima($categoria->proyecto)->codigo != $categoria->codigo) {
+            DB::beginTransaction();
+
+            try {
+                $categoria->moverCodigoAbajo();
+                DB::commit();
+
+                return response()->json([], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([], 500);
+            }
+        }else{
+            return response()->json([], 200);
+        }
     }
 }

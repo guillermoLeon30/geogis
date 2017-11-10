@@ -40,10 +40,14 @@ Route::group(['middleware' => 'auth'], function (){
 	Route::resource('categoria', 'CategoriaController');
 	Route::prefix('categoria')->group(function (){
 		Route::post('copia/{apu}/{categoria}', 'CategoriaController@copia');
+		Route::post('moverArriba/{categoria}', 'CategoriaController@moverArriba');
+		Route::post('moverAbajo/{categoria}', 'CategoriaController@moverAbajo');
 	});
 	//-----------------------------------------------------------------------------------------
 	Route::resource('apu', 'ApuController');
 	Route::prefix('apu')->group(function (){
 		Route::get('excel/{apu}', 'ApuController@exportarExcel');
+		Route::post('moverArriba/{apu}', 'ApuController@moverArriba');
+		Route::post('moverAbajo/{apu}', 'ApuController@moverAbajo');
 	});
 });

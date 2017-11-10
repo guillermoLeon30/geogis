@@ -7,6 +7,7 @@ use App\Models\Equipo;
 use App\Models\Material;
 use App\Models\ManoDeObra;
 use App\Models\Transporte;
+use App\Models\Categoria;
 use Excel;
 
 class Apu extends Model
@@ -186,6 +187,65 @@ class Apu extends Model
         $this->manoDeObra()->detach();
         $this->transportes()->detach();
         $this->delete();
+    }
+    
+    /*******************************************************************************
+    *   Funcion para crear un nuevo apu
+    *   @in $request->all()
+    *   @out 
+    *********************************************************************************/
+    public static function crear($datos){
+        $apu = new Apu($datos);
+        $apu->codigo = Apu::generarCodigo($datos['categoria_id']);
+        $apu->save();
+    }
+
+    /*******************************************************************************
+    *   Funcion para obtener un nuevo codigo para un apu
+    *   @in 
+    *   @out 
+    *********************************************************************************/
+    public static function generarCodigo($categoria_id){
+        $codigo = Categoria::findOrFail($categoria_id)->apus->max('codigo');
+
+        return (is_null($codigo))?1:$codigo+1;
+    }
+
+    /*******************************************************************************
+    *   Funcion para mover la posicion del codigo hacia arriba o sea hacia 1
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function moverCodigoArriba(){
+        $apuAnterior = Apu::where([['categoria_id', $this->categoria_id],
+                                   ['codigo', $this->codigo - 1]])->get()->last();
+        $apuAnterior->codigo = $this->codigo;
+        $apuAnterior->save();
+        $this->codigo = $this->codigo - 1;
+        $this->save();
+    }
+
+    /*******************************************************************************
+    *   Funcion para mover la posicion del codigo hacia arriba o sea hacia 1
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public function moverCodigoAbajo(){
+        $apuSiguiente = Apu::where([['categoria_id', $this->categoria_id],
+                                    ['codigo', $this->codigo + 1]])->get()->last();
+        $apuSiguiente->codigo = $this->codigo;
+        $apuSiguiente->save();
+        $this->codigo = $this->codigo + 1;
+        $this->save();
+    }
+
+    /*******************************************************************************
+    *   Funcion escojer el ultimo apu
+    *   @in  
+    *   @out  
+    *********************************************************************************/
+    public static function ultima($apu){
+        return $apu->categoria->apus->sortBy('codigo')->last();
     }
 
     /*******************************************************************************

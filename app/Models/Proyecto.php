@@ -39,7 +39,8 @@ class Proyecto extends Model
     *********************************************************************************/
     public function buscarCategorias($buscar){
     	return $this->hasMany('App\Models\Categoria')
-    				->where('nombre', 'like', '%'.$buscar.'%');
+    				->where('nombre', 'like', '%'.$buscar.'%')
+                    ->orderBy('codigo');
     }
      /*******************************************************************************
     *	Funcion para buscar usuarios
