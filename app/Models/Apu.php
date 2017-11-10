@@ -188,6 +188,15 @@ class Apu extends Model
         $this->transportes()->detach();
         $this->delete();
     }
+
+    /*******************************************************************************
+    *   Funcion para obtener el codigo del apu
+    *   @in 
+    *   @out string
+    *********************************************************************************/
+    public function codigo(){
+        return $this->categoria->codigo.'.'.$this->codigo;
+    }
     
     /*******************************************************************************
     *   Funcion para crear un nuevo apu
@@ -259,14 +268,12 @@ class Apu extends Model
         })->export('xlsx');
     }
 
-    //De forma temporal le paso un nombre solo para efectos de prueba, el nombre debe ser el codigo del apu.
-    public function hoja($excel, $i){
-        $s = sprintf('%d', $i);
-        $excel->sheet($s, function ($sheet){
+    public function hoja($excel){
+        $excel->sheet($this->codigo(), function ($sheet){
             $sheet->fromArray(array(
                     array('DIRECCION DE OPERACIONES TECNICAS'),
                     array('ANALISIS DE PRECIOS UNITARIOS'),
-                    array('RUBRO:', '????'),
+                    array('RUBRO:', $this->codigo()),
                     array('DESCRIPCIÓN:', $this->descripcion),
                     array('UNIDAD: ', $this->unidad)
             ), null, 'A1', false, false);

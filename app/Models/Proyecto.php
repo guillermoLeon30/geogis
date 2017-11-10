@@ -157,11 +157,9 @@ class Proyecto extends Model
                 $sheet->fromArray($this->getProyectosForExcel(), null, 'A1', false, false);
             });
 
-            $i=1;
             foreach ($this->categorias as $categoria) {
                 foreach ($categoria->apus as $apu) {
-                    $apu->hoja($excel, $i);
-                    $i++;
+                    $apu->hoja($excel);
                 }
             }
         })->export('xlsx');
@@ -178,7 +176,7 @@ class Proyecto extends Model
                 $tg = $apu->totalGeneral();
                 $pu = sprintf('%.2f', $tg);
                 $total = sprintf('%.2f', ($apu->cantidad * $tg));
-                $fila = ['???', $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
+                $fila = [$apu->codigo(), $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
                 array_push($a, $fila);
             }
         }
