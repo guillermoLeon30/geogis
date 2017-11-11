@@ -154,7 +154,33 @@ class Proyecto extends Model
     public function excel(){
         Excel::create('proyecto', function ($excel){
             $excel->sheet('proyecto', function ($sheet){
-                $sheet->fromArray($this->getProyectosForExcel(), null, 'A1', false, false);
+                $campos = ['ITEM', 'RUBRO', 'UNIDAD', 'CANTIDAD DE OBRA', 'PRECIO UNITARIO', 'PRECIO TOTAL'];
+                $sheet->fromArray($campos, null, 'A1', false, false);
+                
+                $tabla = 0;
+                foreach ($this->categorias as $categoria) {
+                    $i = ($tabla==0)?1:2 + 1 + $tabla;
+                    $sheet->appendRow(['sffsd']);
+                    $sheet->mergeCells('A'.($tabla+2).':F'.($tabla+2));
+                    $tabla = $categoria->apus->count() + 1;
+                    foreach ($categoria->apus as $apu) {
+                        $cantidad = sprintf('%.2f', $apu->cantidad);
+                        $tg = $apu->totalGeneral();
+                        $pu = sprintf('%.2f', $tg);
+                        $total = sprintf('%.2f', ($apu->cantidad * $tg));
+                        $fila = [$apu->codigo(), $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
+                        $sheet->appendRow($fila);
+                        $alto = $this->altoFila($apu->descripcion,59.29);
+                        $sheet->setHeight(2 + $i, $alto);
+                        $i++;
+                    }
+                }
+                
+
+                $sheet->setPageMargin(array(0.75, 0.70, 0.75, 0.70));
+                $sheet->setOrientation('landscape');
+                $sheet->setAutoSize(array('A', 'C', 'D', 'E', 'F'));
+                $sheet->setWidth('B', 60);
             });
 
             foreach ($this->categorias as $categoria) {
@@ -163,6 +189,18 @@ class Proyecto extends Model
                 }
             }
         })->export('xlsx');
+    }
+
+    public function altoFila($texto, $cAncho=8.43, $alto=15){
+        $caracteres = strlen($texto);
+        
+        return intval($alto * ceil($caracteres / $cAncho));
+    }
+
+    public function cambiarAltoTabla($tabla, $sheet){
+        for ($i=2; $i < count($tabla)-1; $i++) { 
+            $rubro = $tabla;
+        }
     }
 
     public function getProyectosForExcel(){
