@@ -156,31 +156,31 @@ class Proyecto extends Model
             $excel->sheet('proyecto', function ($sheet){
                 $campos = ['ITEM', 'RUBRO', 'UNIDAD', 'CANTIDAD DE OBRA', 'PRECIO UNITARIO', 'PRECIO TOTAL'];
                 $sheet->fromArray($campos, null, 'A1', false, false);
-                
-                $tabla = 0;
+                $i = 1;
                 foreach ($this->categorias as $categoria) {
-                    $i = ($tabla==0)?1:2 + 1 + $tabla;
-                    $sheet->appendRow(['sffsd']);
-                    $sheet->mergeCells('A'.($tabla+2).':F'.($tabla+2));
-                    $tabla = $categoria->apus->count() + 1;
+                    $i++;
+                    $sheet->appendRow($i, [$categoria->nombre]);
+                    $sheet->mergeCells('A'.$i.':F'.$i);
                     foreach ($categoria->apus as $apu) {
+                        $i++;
                         $cantidad = sprintf('%.2f', $apu->cantidad);
                         $tg = $apu->totalGeneral();
                         $pu = sprintf('%.2f', $tg);
                         $total = sprintf('%.2f', ($apu->cantidad * $tg));
                         $fila = [$apu->codigo(), $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
-                        $sheet->appendRow($fila);
+                        $sheet->appendRow($i, $fila);
                         $alto = $this->altoFila($apu->descripcion,59.29);
-                        $sheet->setHeight(2 + $i, $alto);
-                        $i++;
+                        $sheet->setHeight($i, $alto);
+                        $sheet->getStyle('B'.$i)->getAlignment()->setWrapText(true);
                     }
                 }
                 
-
                 $sheet->setPageMargin(array(0.75, 0.70, 0.75, 0.70));
                 $sheet->setOrientation('landscape');
                 $sheet->setAutoSize(array('A', 'C', 'D', 'E', 'F'));
                 $sheet->setWidth('B', 60);
+                $sheet->getStyle('A1:F1')->applyFromArray($this->estiloEncabezado());
+                $sheet->getStyle('A2:F'.$i)->applyFromArray($this->estiloTabla());
             });
 
             foreach ($this->categorias as $categoria) {
@@ -197,28 +197,29 @@ class Proyecto extends Model
         return intval($alto * ceil($caracteres / $cAncho));
     }
 
-    public function cambiarAltoTabla($tabla, $sheet){
-        for ($i=2; $i < count($tabla)-1; $i++) { 
-            $rubro = $tabla;
-        }
+    public function estiloEncabezado(){
+        return array(
+            'font' => array(
+                'bold' => true,
+            ),
+            'alignment' => array(
+                'horizontal' => 'center',
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',
+                ),
+            )
+        );
     }
 
-    public function getProyectosForExcel(){
-        $campos = ['ITEM', 'RUBRO', 'UNIDAD', 'CANTIDAD DE OBRA', 'PRECIO UNITARIO', 'PRECIO TOTAL'];
-        $a = array($campos);
-
-        foreach ($this->categorias as $categoria) {
-            array_push($a, [$categoria->nombre]);
-            foreach ($categoria->apus as $apu) {
-                $cantidad = sprintf('%.2f', $apu->cantidad);
-                $tg = $apu->totalGeneral();
-                $pu = sprintf('%.2f', $tg);
-                $total = sprintf('%.2f', ($apu->cantidad * $tg));
-                $fila = [$apu->codigo(), $apu->descripcion, $apu->unidad,  $cantidad, $pu, $total];
-                array_push($a, $fila);
-            }
-        }
-
-        return $a;
+    public function estiloTabla(){
+        return array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => 'thin',
+                ),
+            )
+        );
     }
 }
