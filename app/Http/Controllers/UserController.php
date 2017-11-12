@@ -24,7 +24,7 @@ class UserController extends Controller
         $filtro = (isset($request->filtro) && !empty($request->filtro))?$request->filtro:'';
         $page = $request->page;
      
-        if ($request->ajax() && $request->tipo = 'todos') {
+        if ($request->ajax() && $request->tipo == 'todos') {
             $id = User::idCreadorProyecto($request->idProyecto);
             $usuarios = User::buscar($filtro)->where('id', '!=', $id)->get()->take(20);
             return response()->json(['usuarios' => $usuarios]);

@@ -136,7 +136,7 @@ class CategoriaController extends Controller
 
     public function moverArriba(Categoria $categoria)
     {
-        if ($categoria->codigo != 1) {
+        if ($categoria->codigo > 1) {
             DB::beginTransaction();
 
             try {
