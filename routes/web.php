@@ -26,8 +26,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function (){
 	Route::resource('usuarios', 'UserController', ['except' => ['create', 'show']]);
 	Route::resource('roles', 'RolController', ['except' => ['show']]);
+	//---------------------------------------------------------------------------------
 	Route::resource('equipos', 'EquipoController', ['except' => ['create', 'show']]);
+	Route::prefix('equipos')->group(function (){
+		Route::get('excel', 'EquipoController@excel');
+	});
+	//----------------------------------------------------------------------------------
 	Route::resource('materiales', 'MaterialController', ['except' => ['create', 'show']]);
+	Route::prefix('materiales')->group(function (){
+		Route::get('excel', 'MaterialController@excel');
+	});
+	//----------------------------------------------------------------------------------
 	Route::resource('mano_de_obra', 'ManoDeObraController', ['except' => ['create', 'show']]);
 	Route::resource('transportes', 'TransporteController', ['except' => ['create', 'show']]);
 	Route::resource('biblioteca_apus', 'BiblioApusController');

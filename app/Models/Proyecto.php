@@ -80,7 +80,7 @@ class Proyecto extends Model
     *   @out 
     *********************************************************************************/
     public function actualizarPermisos($info){
-        $this->usuarios()->sync($this->arrActualizar($info));
+        $this->usuarios()->syncWithoutDetaching($this->arrActualizar($info));
     }
 
     public function arrActualizar($info){
@@ -104,7 +104,7 @@ class Proyecto extends Model
         
     }
     /*******************************************************************************
-    *   Funcion para actualizar los permisos al proyecto
+    *   Funcion para eliminar los permisos al proyecto
     *   @in $user_id ($request->user_id) 
     *   @out 
     *********************************************************************************/

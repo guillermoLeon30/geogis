@@ -143,19 +143,19 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        $user = User::findOrFail($id);
         $this->authorize('delete', new User());
         
         DB::beginTransaction();
 
         try {
-            $user = User::findOrFail($id);
-            $user->roles()->detach($user->rolesId());
-            $user->delete();
+            $user->eliminar();
             DB::commit();
 
             return response()->json(['mensaje' => 'Se elimino correctamente el registro.']);
         } catch (\Exception $e) {
             DB::rollBack();
+            
             return response()->json([], 500);
         }
     }

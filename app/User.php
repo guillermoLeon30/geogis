@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Rol;
 
 class User extends Authenticatable
@@ -30,15 +31,19 @@ class User extends Authenticatable
     ];
 
     //------------------------------------RELACIONES----------------------------------
-    public function roles()
-    {
+    public function roles(){
         return $this->belongsToMany('App\Models\Rol');
+    }
+
+    public function proyectos(){
+        return $this->belongsToMany('App\Models\Proyecto');
     }
 
     //---------------------------------ALCANCES DE DATOS-------------------------------
     public function scopeBuscar($query, $buscar)
     {
-        return $query->where('name', 'like', '%'.$buscar.'%');             
+        return $query->where('name', 'like', '%'.$buscar.'%')
+                     ->where('id', '<>', Auth::user()->id);
     }
 
     //-------------------------------------METODOS-------------------------------------
@@ -106,4 +111,19 @@ class User extends Authenticatable
         return DB::table('proyecto_user')->where([['proyecto_id', $idProyecto],
                                                   ['creador', 1]])->value('user_id');
     }
+
+    /**
+     * Eliminar usuario
+     *
+     */
+    public function eliminar(){
+        if ($this->roles->isNotEmpty()) {
+            $this->roles()->detach();
+        }
+        if ($this->proyectos->isNotEmpty()) {
+            $this->proyectos()->detach();
+        }
+        $this->delete();
+    }
+
 }
