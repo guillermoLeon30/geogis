@@ -38,6 +38,10 @@ Route::group(['middleware' => 'auth'], function (){
 	});
 	//----------------------------------------------------------------------------------
 	Route::resource('mano_de_obra', 'ManoDeObraController', ['except' => ['create', 'show']]);
+	Route::prefix('mano_de_obra')->group(function (){
+		Route::get('excel', 'ManoDeObraController@excel');
+	});
+	//-----------------------------------------------------------------------------------
 	Route::resource('transportes', 'TransporteController', ['except' => ['create', 'show']]);
 	Route::resource('biblioteca_apus', 'BiblioApusController');
 	//----------------------------------------------------------------------------------------
