@@ -43,6 +43,10 @@ Route::group(['middleware' => 'auth'], function (){
 	});
 	//-----------------------------------------------------------------------------------
 	Route::resource('transportes', 'TransporteController', ['except' => ['create', 'show']]);
+	Route::prefix('transportes')->group(function (){
+		Route::get('excel', 'TransporteController@excel');
+	});
+	//------------------------------------------------------------------------------------
 	Route::resource('biblioteca_apus', 'BiblioApusController');
 	//----------------------------------------------------------------------------------------
 	Route::resource('proyecto', 'ProyectoController');

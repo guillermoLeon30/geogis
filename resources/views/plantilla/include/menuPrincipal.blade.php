@@ -66,23 +66,7 @@
               <li><a href="{{ url('equipos/excel') }}"><i class="fa fa-wrench"></i> Equipos</a></li>
               <li><a href="{{ url('materiales/excel') }}"><i class="fa fa-industry"></i> Materiales</a></li>
               <li><a href="{{ url('mano_de_obra/excel') }}"><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
-              <li><a href=""><i class="fa fa-truck"></i> Transporte</a></li> 
-            </ul>
-          </li>
-
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-cloud-upload"></i> <span>Subir</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            
-            <ul class="treeview-menu">
-              <li><a href=""><i class="fa fa-wrench"></i> Equipos</a></li>
-              <li><a href=""><i class="fa fa-industry"></i> Materiales</a></li>
-              <li><a href=""><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
-              <li><a href=""><i class="fa fa-truck"></i> Transporte</a></li> 
+              <li><a href="{{ url('transportes/excel') }}"><i class="fa fa-truck"></i> Transporte</a></li> 
             </ul>
           </li>
 
