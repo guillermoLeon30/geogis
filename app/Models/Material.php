@@ -32,7 +32,7 @@ class Material extends Model
     *   @out 
     *********************************************************************************/
     public static function excel(){
-        Excel::create('Equipos', function ($excel){
+        Excel::create('Materiales', function ($excel){
             $excel->sheet('Hoja', function ($sheet){
                 $campos = ['ID', 'DESCRIPCION', 'UNIDAD', 'COSTO'];
                 $sheet->fromArray($campos, null, 'A1', false, false);
