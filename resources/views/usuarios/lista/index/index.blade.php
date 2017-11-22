@@ -31,7 +31,7 @@
 		                  <input id="buscar" type="text" class="form-control pull-right" placeholder="Buscar">
 
 		                  <div class="input-group-btn">
-		                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+		                    <i class="fa fa-search"></i>
 		                  </div>
 		                </div>
 		            </div>

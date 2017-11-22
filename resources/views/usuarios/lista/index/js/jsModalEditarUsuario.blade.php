@@ -59,7 +59,7 @@ $('#formEditarUsuario').submit(function (e) {
 		 	$('#modalEditarUsuario').modal('hide');
 
 		 	generarTabla(page, filtro);
-		 	mensaje('ok', data, '#mensaje');
+		 	//mensaje('ok', data, '#mensaje');
 		},
 		error: function (data) {
 		 	$('#btnEditarUsuario').prop('disabled', false);

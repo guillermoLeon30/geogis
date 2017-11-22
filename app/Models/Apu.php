@@ -380,8 +380,8 @@ class Apu extends Model
             $cg = $sheet->getColumnDimension('G')->getWidth();
             $ctotal = intval(floor($cb + $cc + $cd + $ce + $cf + $cg));
                     
-            $sheet->getStyle('B5')->getAlignment()->setWrapText(true);
-            $sheet->setHeight(5, $this->altoFila($this->descripcion, $ctotal));
+            $sheet->getStyle('B4')->getAlignment()->setWrapText(true);
+            $sheet->setHeight(4, $this->altoFila($this->descripcion, $ctotal));
             // Set top, right, bottom, left
             $sheet->setPageMargin(array(
                 0.75, 0.70, 0.75, 0.70

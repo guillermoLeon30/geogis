@@ -54,6 +54,38 @@
             </a>
         </li>
 
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-download"></i> <span>Descargar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            
+            <ul class="treeview-menu">
+              <li><a href="{{ url('equipos/excel') }}"><i class="fa fa-wrench"></i> Equipos</a></li>
+              <li><a href="{{ url('materiales/excel') }}"><i class="fa fa-industry"></i> Materiales</a></li>
+              <li><a href=""><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
+              <li><a href=""><i class="fa fa-truck"></i> Transporte</a></li> 
+            </ul>
+          </li>
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-cloud-upload"></i> <span>Subir</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            
+            <ul class="treeview-menu">
+              <li><a href=""><i class="fa fa-wrench"></i> Equipos</a></li>
+              <li><a href=""><i class="fa fa-industry"></i> Materiales</a></li>
+              <li><a href=""><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
+              <li><a href=""><i class="fa fa-truck"></i> Transporte</a></li> 
+            </ul>
+          </li>
+
         @can('VerMenuUsuarios', new App\Models\Menus())
           <li class="treeview">
             <a href="#">
