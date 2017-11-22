@@ -54,8 +54,8 @@ class Material extends Model
                 $sheet->setPageMargin(array(0.75, 0.70, 0.75, 0.70));
                 $sheet->setAutoSize(array('A', 'C', 'D'));
                 $sheet->setWidth('B', 58);
-                $sheet->getStyle('A1:D1')->applyFromArray(Equipo::estiloEncabezado());
-                $sheet->getStyle('A2:D'.$i)->applyFromArray(Equipo::estiloTabla());
+                $sheet->getStyle('A1:D1')->applyFromArray(Material::estiloEncabezado());
+                $sheet->getStyle('A2:D'.$i)->applyFromArray(Material::estiloTabla());
                 $sheet->getColumnDimension('A')->setVisible(false);
             });
         })->export('xlsx');
