@@ -115,4 +115,9 @@ class ManoDeObraController extends Controller
 
         return response()->json(['mensaje' => 'Se eliminó correctamnte el regitro.']);
     }
+
+    public function excel()
+    {
+        ManoDeObra::excel();
+    }
 }
