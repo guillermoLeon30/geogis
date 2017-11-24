@@ -115,7 +115,7 @@ class ProyectoController extends Controller
      */
     public function update(ProyectoRequest $request, Proyecto $proyecto)
     {
-        if ($request->info == 'datos') {
+        if ($request->info == 'datos' && Auth::User()->can('update', $proyecto)) {
             $proyecto->actualizarDatos($request->all());
 
             return response()->json(['mensaje' => 'Se actualizó correctamente el registro.']);
@@ -133,7 +133,7 @@ class ProyectoController extends Controller
             }
         }
 
-        if ($request->info == 'eliminarPermiso') {
+        if ($request->info == 'eliminarPermiso' && Auth::User()->can('crearPermiso', $proyecto)) {
             $proyecto->eliminarUsuario($request->user_id);
             return response()->json([], 200);
         }

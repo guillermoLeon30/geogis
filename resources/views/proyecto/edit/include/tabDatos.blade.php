@@ -29,8 +29,10 @@
           <input id="total" type="text" class="form-control" disabled value="${{ $proyecto->total() }}">
         </div>            
       </div>
-
-      <button type="submit" class="btn btn-success">Guardar</button>
+      
+      @if(Auth::user()->can('update', $proyecto))
+        <button type="submit" class="btn btn-success">Guardar</button>
+      @endif
     </div>
   </form>
 </div>

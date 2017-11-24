@@ -11,8 +11,7 @@ class ProyectoPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
+    public function before($user, $ability){
         if (!$user->activo()) {
             return false;
         }
@@ -48,9 +47,13 @@ class ProyectoPolicy
      * @param  \App\Proyecto  $proyecto
      * @return mixed
      */
-    public function update(User $user, Proyecto $proyecto)
-    {
-        //
+    public function update(User $user, Proyecto $proyecto){
+        $creador = DB::table('proyecto_user')->where('user_id', $user->id)
+                                             ->where('proyecto_id', $proyecto->id)
+                                             ->get()
+                                             ->first()
+                                             ->creador;
+        return ($creador == 1)?true:false;
     }
 
     /**
@@ -60,13 +63,7 @@ class ProyectoPolicy
      * @param  \App\Proyecto  $proyecto
      * @return mixed
      */
-    public function delete(User $user, Proyecto $proyecto)
-    {
-        //
-    }
-
-    public function crearPermiso(User $user, Proyecto $proyecto)
-    {
+    public function delete(User $user, Proyecto $proyecto){
         $creador = DB::table('proyecto_user')->where('user_id', $user->id)
                                              ->where('proyecto_id', $proyecto->id)
                                              ->get()
@@ -75,8 +72,16 @@ class ProyectoPolicy
         return ($creador == 1)?true:false;
     }
 
-    public function editar(User $user, Proyecto $proyecto)
-    {
+    public function crearPermiso(User $user, Proyecto $proyecto){
+        $creador = DB::table('proyecto_user')->where('user_id', $user->id)
+                                             ->where('proyecto_id', $proyecto->id)
+                                             ->get()
+                                             ->first()
+                                             ->creador;
+        return ($creador == 1)?true:false;
+    }
+
+    public function editar(User $user, Proyecto $proyecto){
         $pu = DB::table('proyecto_user')->where('user_id', $user->id)
                                         ->where('proyecto_id', $proyecto->id)
                                         ->get()

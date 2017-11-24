@@ -36,13 +36,15 @@
                   </td>
                   <td>${{ $categoria->total() }}</td>
                   <td>
-                    <button class="btn btn-success" onclick="moverArriba({{$categoria->id}})">
-                      <span class="glyphicon glyphicon-arrow-up"></span>
-                    </button>
+                    @if(Auth::user()->can('update', $proyecto))
+                      <button class="btn btn-success" onclick="moverArriba({{$categoria->id}})">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                      </button>
 
-                    <button class="btn btn-success" onclick="moverAbajo({{$categoria->id}})">
-                      <span class="glyphicon glyphicon-arrow-down"></span>
-                    </button>
+                      <button class="btn btn-success" onclick="moverAbajo({{$categoria->id}})">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                      </button>
+                    @endif
 
                     <a class="btn btn-primary" href="{{ url('categoria/'.$categoria->id.'/edit') }}">
                       <span class="glyphicon glyphicon-pencil"></span>
