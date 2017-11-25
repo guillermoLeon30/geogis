@@ -18,7 +18,9 @@
         </div>            
       </div>
 
-      <button type="submit" class="btn btn-success">Guardar</button>
+      @can('update', $categoria->proyecto)
+        <button type="submit" class="btn btn-success">Guardar</button>
+      @endcan
     </div>
   </form>
 </div>

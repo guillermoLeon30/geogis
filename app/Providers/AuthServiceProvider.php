@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\ManoDeObra'     =>  'App\Policies\ManoDeObraPolicy',
         'App\Models\Transporte'     =>  'App\Policies\TransportePolicy',
         'App\Models\Proyecto'       =>  'App\Policies\ProyectoPolicy',
+        'App\Models\BibliotecaApus' =>  'App\Policies\ApusPolicy',
     ];
 
     /**
@@ -35,5 +36,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('UsuarioActivo', 'App\Policies\MenusPolicy@UsuarioActivo');
         Gate::define('ver-menu-items', 'App\Policies\MenusPolicy@VerMenuItems');
         Gate::define('VerMenuUsuarios', 'App\Policies\MenusPolicy@VerMenuUsuarios');
+        Gate::define('VerMenuDescargar', 'App\Policies\MenusPolicy@VerMenuDescargar');
     }
 }

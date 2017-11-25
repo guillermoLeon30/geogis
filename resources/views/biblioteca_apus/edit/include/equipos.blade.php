@@ -3,9 +3,13 @@
     <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title"></h3>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarEquipos">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
+
+        @can('update', App\Models\BibliotecaApus::class)
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarEquipos">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        @endcan
+
       </div>
 
       <div class="box-body table-responsive no-padding">
@@ -38,11 +42,13 @@
                 <td>
                   ${{ round($equipo->pivot->cantidad*$equipo->costo_hora*$equipo->pivot->rendimiento ,2) }}
                 </td>
-                <td>
-                  <button class="btn btn-danger" onclick="quitarEquipo({{ $equipo->id }})">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                  </button>
-                </td>
+                @can('update', BibliotecaApus::class)
+                  <td>
+                    <button class="btn btn-danger" onclick="quitarEquipo({{ $equipo->id }})">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                @endcan
               </tr>
             @endforeach
           </tbody>

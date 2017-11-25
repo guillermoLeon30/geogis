@@ -35,15 +35,17 @@
             </ul>
           </li>
         @endcan
-
-        <li class="treeview">
-          <a href="{{ url('biblioteca_apus') }}">
-              <i class="fa fa-file-text-o"></i> <span>APUS</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-        </li>
+        
+        @can('view', App\Models\BibliotecaApus::class)
+          <li class="treeview">
+            <a href="{{ url('biblioteca_apus') }}">
+                <i class="fa fa-file-text-o"></i> <span>APUS</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+          </li>
+        @endcan
 
         <li class="treeview">
           <a href="{{ url('proyecto') }}">
@@ -53,7 +55,8 @@
               </span>
             </a>
         </li>
-
+        
+        @can('VerMenuDescargar', App\Models\Menus::class)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-download"></i> <span>Descargar</span>
@@ -63,12 +66,24 @@
             </a>
             
             <ul class="treeview-menu">
-              <li><a href="{{ url('equipos/excel') }}"><i class="fa fa-wrench"></i> Equipos</a></li>
-              <li><a href="{{ url('materiales/excel') }}"><i class="fa fa-industry"></i> Materiales</a></li>
-              <li><a href="{{ url('mano_de_obra/excel') }}"><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
-              <li><a href="{{ url('transportes/excel') }}"><i class="fa fa-truck"></i> Transporte</a></li> 
+              @can('descargar', App\Models\Equipo::class)
+                <li><a href="{{ url('equipos/excel') }}"><i class="fa fa-wrench"></i> Equipos</a></li>
+              @endcan
+
+              @can('descargar', App\Models\Material::class)
+                <li><a href="{{ url('materiales/excel') }}"><i class="fa fa-industry"></i> Materiales</a></li>
+              @endcan
+              
+              @can('descargar', App\Models\ManoDeObra::class)
+                <li><a href="{{ url('mano_de_obra/excel') }}"><i class="fa fa-hand-stop-o"></i> Mano de Obra</a></li>
+              @endcan
+
+              @can('descargar', App\Models\Transporte::class)
+                <li><a href="{{ url('transportes/excel') }}"><i class="fa fa-truck"></i> Transporte</a></li> 
+              @endcan
             </ul>
           </li>
+        @endcan
 
         @can('VerMenuUsuarios', new App\Models\Menus())
           <li class="treeview">

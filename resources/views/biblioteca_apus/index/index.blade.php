@@ -8,14 +8,14 @@
 	<div class="box-header">
 		<h2 class="box-title" style="font-size: 30px">Biblioteca de APUs</h2>
 
-		
+		@can('create', App\Models\BibliotecaApus::class)
 			<div class="box-tools">
 				<a href="{{ url('biblioteca_apus/create') }}" class="btn btn-success pull-right">
 					<i class="glyphicon glyphicon-plus"></i>
 					Nuevo
 				</a>
 			</div>
-		
+		@endcan
 
 	</div>
 @endsection

@@ -87,6 +87,7 @@ class CategoriaController extends Controller
     public function update(CategoriaRequest $request, $id)
     {
         $categoria = Categoria::findOrFail($id);
+        $this->authorize('update', $categoria->proyecto);
         $categoria->actualizarDatos($request->all());
 
         return response()->json(['mensaje' => 'Se ingreso correctamente el registro.']);
@@ -101,7 +102,7 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         $categoria = Categoria::findOrFail($id);
-        $this->authorize('editar', $categoria->proyecto);
+        $this->authorize('update', $categoria->proyecto);   
         DB::beginTransaction();
 
         try {
@@ -120,6 +121,7 @@ class CategoriaController extends Controller
 
     public function copia(BibliotecaApus $apu, Categoria $categoria)
     {
+        $this->authorize('editar', $categoria->proyecto);
         DB::beginTransaction();
 
         try {
@@ -136,6 +138,8 @@ class CategoriaController extends Controller
 
     public function moverArriba(Categoria $categoria)
     {
+        $this->authorize('update', $categoria->proyecto);
+
         if ($categoria->codigo > 1) {
             DB::beginTransaction();
 
@@ -156,6 +160,8 @@ class CategoriaController extends Controller
 
     public function moverAbajo(Categoria $categoria)
     {
+        $this->authorize('update', $categoria->proyecto);
+
         if (Categoria::ultima($categoria->proyecto)->codigo != $categoria->codigo) {
             DB::beginTransaction();
 

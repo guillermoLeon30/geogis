@@ -19,18 +19,17 @@
 					<td>${{ $apu->total() }}</td>
 
 					<td>
-							<a href="{{ url('biblioteca_apus/'.$apu->id) }}" class="btn btn-info">
-								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-							</a>	
-						
+						@can('updateOrShow', App\Models\BibliotecaApus::class)
 							<a href="{{ url('biblioteca_apus/'.$apu->id.'/edit') }}" class="btn btn-primary">
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 							</a>
-							
+						@endcan
+						
+						@can('delete', App\Models\BibliotecaApus::class)
 							<button class="btn btn-danger" onclick="eliminar({{ $apu->id }})">
 								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</button>
-						
+						@endcan
 					</td>
 				</tr>
 			@endforeach

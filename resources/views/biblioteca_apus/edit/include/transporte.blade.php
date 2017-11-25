@@ -3,9 +3,12 @@
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title"></h3>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarTransporte">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
+
+        @can('update', App\Models\BibliotecaApus::class)
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarTransporte">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        @endcan
       </div>
 
       <div class="box-body table-responsive no-padding">
@@ -35,11 +38,13 @@
                 <td>${{ $transporte->costo_km }}/km</td>
                 <td>{{ $transporte->pivot->cantidad }}Km</td>
                 <td>${{ round($transporte->costo_km*$transporte->pivot->cantidad, 2) }}</td>
-                <td>
-                  <button class="btn btn-danger" onclick="quitarTransporte({{ $transporte->id }})">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                  </button>
-                </td>
+                @can('update', BibliotecaApus::class)
+                  <td>
+                    <button class="btn btn-danger" onclick="quitarTransporte({{ $transporte->id }})">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                @endcan
               </tr>
             @endforeach
           </tbody>

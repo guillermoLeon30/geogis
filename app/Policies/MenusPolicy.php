@@ -20,13 +20,11 @@ class MenusPolicy
         //
     }
 
-    public function UsuarioActivo(User $user)
-    {
+    public function UsuarioActivo(User $user){
         return $user->activo();
     }
 
-    public function VerMenuItems(User $user)
-    {
+    public function VerMenuItems(User $user){
         if ($user->esAdmin()) {
             return true;
         }
@@ -34,12 +32,19 @@ class MenusPolicy
         return (array_search('Ver Menu Items', $user->permisos()) === false )?false:true;
     }
 
-     public function VerMenuUsuarios(User $user)
-    {
+    public function VerMenuUsuarios(User $user){
         if ($user->esAdmin()) {
             return true;
         }
         
         return (array_search('Ver Menu Usuarios', $user->permisos()) === false )?false:true;
+    }
+
+    public function VerMenuDescargar(User $user){
+        if ($user->esAdmin()) {
+            return true;
+        }
+
+        return in_array('Ver Pestaña Descarga', $user->permisos());
     }
 }

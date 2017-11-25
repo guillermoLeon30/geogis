@@ -10,8 +10,7 @@ class EquipoPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
+    public function before($user, $ability){
         if (!$user->activo()) {
             return false;
         }
@@ -25,8 +24,7 @@ class EquipoPolicy
      * @param  \App\Models\Equipo  $equipo
      * @return mixed
      */
-    public function view(User $user, Equipo $equipo)
-    {
+    public function view(User $user, Equipo $equipo){
         return (array_search('Ver Pestaña Equipos', $user->permisos()) === false )?false:true;
     }
 
@@ -36,8 +34,7 @@ class EquipoPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
-    {
+    public function create(User $user){
         return (array_search('Crear Equipo', $user->permisos()) === false )?false:true;
     }
 
@@ -48,8 +45,7 @@ class EquipoPolicy
      * @param  \App\Models\Equipo  $equipo
      * @return mixed
      */
-    public function update(User $user, Equipo $equipo)
-    {
+    public function update(User $user, Equipo $equipo){
         return (array_search('Editar Equipo', $user->permisos()) === false )?false:true;
     }
 
@@ -60,8 +56,11 @@ class EquipoPolicy
      * @param  \App\Models\Equipo  $equipo
      * @return mixed
      */
-    public function delete(User $user, Equipo $equipo)
-    {
+    public function delete(User $user, Equipo $equipo){
         return (array_search('Eliminar Equipo', $user->permisos()) === false )?false:true;
+    }
+
+    public function descargar(User $user){
+        return in_array('Descargar Equipos', $user->permisos());
     }
 }

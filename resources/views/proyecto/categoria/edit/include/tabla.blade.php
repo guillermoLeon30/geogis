@@ -22,13 +22,15 @@
                   <td>{{ $apu->cantidad }}</td>
                   <td>${{ $apu->totalApuCantidad() }}</td>
                   <td>
-                    <button class="btn btn-success" onclick="moverArriba({{$apu->id}})">
-                      <span class="glyphicon glyphicon-arrow-up"></span>
-                    </button>
+                    @can('editar', $apu->categoria->proyecto)
+                      <button class="btn btn-success" onclick="moverArriba({{$apu->id}})">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                      </button>
 
-                    <button class="btn btn-success" onclick="moverAbajo({{$apu->id}})">
-                      <span class="glyphicon glyphicon-arrow-down"></span>
-                    </button>
+                      <button class="btn btn-success" onclick="moverAbajo({{$apu->id}})">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                      </button>
+                    @endcan
 
                     <a class="btn btn-primary" href="{{ url('apu') }}/{{ $apu->id }}/edit">
                       <span class="glyphicon glyphicon-pencil"></span>

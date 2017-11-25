@@ -235,7 +235,7 @@ class Apu extends Model
     }
 
     /*******************************************************************************
-    *   Funcion para mover la posicion del codigo hacia arriba o sea hacia 1
+    *   Funcion para mover la posicion del codigo hacia abajo
     *   @in  
     *   @out  
     *********************************************************************************/

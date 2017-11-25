@@ -1,10 +1,10 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <div class="logo">
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"> <b>Geogis </b> Consulting</span>
-    </a>
+      <span class="logo-lg"> <b>Presupuestos </b></span>
+    </div>
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -28,14 +28,13 @@
 
                 <p>
                   {{ Auth::user()->name }}
-                  <small>Administrador</small>
                 </p>
               </li>
               
               <!-- Menu Footer-->
               <li class="user-footer">  
-                <div class="pull-right">
-                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
+                <div class="">
+                  <a href="{{ route('logout') }}" class="btn btn-success btn-flat" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Salir</a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

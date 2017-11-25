@@ -2,9 +2,12 @@
   <div class="col-xs-12">
     <div class="box box-info">
       <div class="box-header">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarCategoria">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
+
+        @if(Auth::user()->can('update', $proyecto))
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarCategoria">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        @endif
 
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 200px;">
@@ -36,19 +39,21 @@
                   </td>
                   <td>${{ $categoria->total() }}</td>
                   <td>
-                    <button class="btn btn-success" onclick="moverArriba({{$categoria->id}})">
-                      <span class="glyphicon glyphicon-arrow-up"></span>
-                    </button>
+                    @if(Auth::user()->can('update', $proyecto))
+                      <button class="btn btn-success" onclick="moverArriba({{$categoria->id}})">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                      </button>
 
-                    <button class="btn btn-success" onclick="moverAbajo({{$categoria->id}})">
-                      <span class="glyphicon glyphicon-arrow-down"></span>
-                    </button>
+                      <button class="btn btn-success" onclick="moverAbajo({{$categoria->id}})">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                      </button>
+                    @endif
 
                     <a class="btn btn-primary" href="{{ url('categoria/'.$categoria->id.'/edit') }}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                     
-                    @if(Auth::user()->can('editar', $categoria->proyecto))
+                    @if(Auth::user()->can('update', $proyecto))
                       <button class="btn btn-danger" onclick="eliminarCategoria({{$categoria->id}})">
                         <span class="glyphicon glyphicon-trash"></span>
                       </button>
