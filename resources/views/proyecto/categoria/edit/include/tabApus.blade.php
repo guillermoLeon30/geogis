@@ -2,13 +2,15 @@
   <div class="col-xs-12">
     <div class="box box-info">
       <div class="box-header">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevo">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCopiar">
-          <i class="fa fa-copy"></i>
-        </button>
+        @can('editar', $categoria->proyecto)
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevo">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCopiar">
+            <i class="fa fa-copy"></i>
+          </button>
+        @endcan
 
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 200px;">
@@ -46,13 +48,15 @@
                   <td>{{ $apu->cantidad }}</td>
                   <td>${{ $apu->totalApuCantidad() }}</td>
                   <td>
-                    <button class="btn btn-success" onclick="moverArriba({{$apu->id}})">
-                      <span class="glyphicon glyphicon-arrow-up"></span>
-                    </button>
-
-                    <button class="btn btn-success" onclick="moverAbajo({{$apu->id}})">
-                      <span class="glyphicon glyphicon-arrow-down"></span>
-                    </button>
+                    @can('editar', $apu->categoria->proyecto)
+                      <button class="btn btn-success" onclick="moverArriba({{$apu->id}})">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                      </button>
+                    
+                      <button class="btn btn-success" onclick="moverAbajo({{$apu->id}})">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                      </button>
+                    @endcan
 
                     <a class="btn btn-primary" href="{{ url('apu') }}/{{ $apu->id }}/edit">
                       <span class="glyphicon glyphicon-pencil"></span>

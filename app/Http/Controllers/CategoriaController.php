@@ -87,6 +87,7 @@ class CategoriaController extends Controller
     public function update(CategoriaRequest $request, $id)
     {
         $categoria = Categoria::findOrFail($id);
+        $this->authorize('update', $categoria->proyecto);
         $categoria->actualizarDatos($request->all());
 
         return response()->json(['mensaje' => 'Se ingreso correctamente el registro.']);
@@ -120,6 +121,7 @@ class CategoriaController extends Controller
 
     public function copia(BibliotecaApus $apu, Categoria $categoria)
     {
+        $this->authorize('editar', $categoria->proyecto);
         DB::beginTransaction();
 
         try {

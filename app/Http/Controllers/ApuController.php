@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ApuRequest;
 use App\Http\Requests\ApuUpdateRequest;
 use App\Models\Apu;
+use App\Models\Categoria;
 
 class ApuController extends Controller
 {
@@ -41,6 +42,8 @@ class ApuController extends Controller
      */
     public function store(ApuRequest $request)
     {
+        $proyecto = Categoria::findOrFail($request->categoria_id)->proyecto;
+        $this->authorize('editar', $proyecto);
         Apu::crear($request->all());
 
         return response()->json([], 200);
@@ -124,6 +127,7 @@ class ApuController extends Controller
 
     public function moverArriba(Apu $apu)
     {
+        $this->authorize('editar', $apu->categoria->proyecto);
         if ($apu->codigo != 1) {
             DB::beginTransaction();
 
@@ -144,6 +148,7 @@ class ApuController extends Controller
 
     public function moverAbajo(Apu $apu)
     {
+        $this->authorize('editar', $apu->categoria->proyecto);
         if (Apu::ultima($apu)->codigo != $apu->codigo) {
             DB::beginTransaction();
 

@@ -3,9 +3,12 @@
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title"></h3>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarManoDeObra">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
+
+        @can('editar', $apu->categoria->proyecto)
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngresarManoDeObra">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        @endcan
       </div>
 
       <div class="box-body table-responsive no-padding">
@@ -41,11 +44,13 @@
                 <td id="totalMano{{ $mano->id }}">
                   ${{ round($mano->pivot->costo_hora2 * $mano->pivot->cantidad * $mano->pivot->rendimiento,2) }}
                 </td>
-                <td>
-                  <button class="btn btn-danger" onclick="quitarMano({{ $mano->id }})">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                  </button>
-                </td>
+                @can('editar', $apu->categoria->proyecto)
+                  <td>
+                    <button class="btn btn-danger" onclick="quitarMano({{ $mano->id }})">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                @endcan
               </tr>
             @endforeach
           </tbody>
