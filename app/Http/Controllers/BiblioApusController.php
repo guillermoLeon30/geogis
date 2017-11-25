@@ -16,8 +16,9 @@ class BiblioApusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
+        $this->authorize('view', BibliotecaApus::class);
+        
         $filtro = (isset($request->filtro) && !empty($request->filtro))?$request->filtro:'';
         $page = $request->page;
         
@@ -50,6 +51,8 @@ class BiblioApusController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', BibliotecaApus::class);
+
         return view('biblioteca_apus.create.create');
     }
 
@@ -61,6 +64,7 @@ class BiblioApusController extends Controller
      */
     public function store(BiblioApusRequest $request)
     {
+        $this->authorize('create', BibliotecaApus::class);
         DB::beginTransaction();
 
         try {
@@ -95,6 +99,7 @@ class BiblioApusController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('updateOrShow', BibliotecaApus::class);
         $apu = BibliotecaApus::findOrFail($id);
 
         return view('biblioteca_apus.edit.edit', ['apu' => $apu]);
@@ -109,6 +114,7 @@ class BiblioApusController extends Controller
      */
     public function update(UpdateBiblioApuRequest $request, $id)
     {
+        $this->authorize('update', BibliotecaApus::class);
         $apu = BibliotecaApus::findOrFail($id);
         DB::beginTransaction();
 
@@ -132,6 +138,7 @@ class BiblioApusController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', BibliotecaApus::class);
         $apu = BibliotecaApus::findOrFail($id);
         DB::beginTransaction();
 

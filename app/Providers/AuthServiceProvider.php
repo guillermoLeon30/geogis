@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\ManoDeObra'     =>  'App\Policies\ManoDeObraPolicy',
         'App\Models\Transporte'     =>  'App\Policies\TransportePolicy',
         'App\Models\Proyecto'       =>  'App\Policies\ProyectoPolicy',
+        'App\Models\BibliotecaApus' =>  'App\Policies\ApusPolicy',
     ];
 
     /**

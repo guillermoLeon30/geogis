@@ -15,12 +15,15 @@
 		</ol>
 		
 		<br>
+		
+		@can('update', App\Models\BibliotecaApus::class)
+			<div class="box-tools">
+				<button id="btnGuardar" class="btn btn-success" onclick="guardar()">
+					<i class="fa fa-save"></i>
+				</button>
+			</div>
+		@endcan
 
-		<div class="box-tools">
-			<button id="btnGuardar" class="btn btn-success" onclick="guardar()">
-				<i class="fa fa-save"></i>
-			</button>
-		</div>
 	</section>
 
 	

@@ -35,15 +35,17 @@
             </ul>
           </li>
         @endcan
-
-        <li class="treeview">
-          <a href="{{ url('biblioteca_apus') }}">
-              <i class="fa fa-file-text-o"></i> <span>APUS</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-        </li>
+        
+        @can('view', App\Models\BibliotecaApus::class)
+          <li class="treeview">
+            <a href="{{ url('biblioteca_apus') }}">
+                <i class="fa fa-file-text-o"></i> <span>APUS</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+          </li>
+        @endcan
 
         <li class="treeview">
           <a href="{{ url('proyecto') }}">
