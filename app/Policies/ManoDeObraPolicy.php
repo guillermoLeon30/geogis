@@ -9,8 +9,7 @@ class ManoDeObraPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
+    public function before($user, $ability){
         if (!$user->activo()) {
             return false;
         }
@@ -23,8 +22,7 @@ class ManoDeObraPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function view(User $user)
-    {
+    public function view(User $user){
         return (array_search('Ver Pestaña Mano De Obra', $user->permisos()) === false )?false:true;
     }
 
@@ -34,8 +32,7 @@ class ManoDeObraPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
-    {
+    public function create(User $user){
         return (array_search('Crear Mano De Obra', $user->permisos()) === false )?false:true;
     }
 
@@ -45,8 +42,7 @@ class ManoDeObraPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function update(User $user)
-    {
+    public function update(User $user){
         return (array_search('Editar Mano De Obra', $user->permisos()) === false )?false:true;
     }
 
@@ -56,8 +52,11 @@ class ManoDeObraPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function delete(User $user)
-    {
+    public function delete(User $user){
         return (array_search('Eliminar Mano de Obra', $user->permisos()) === false )?false:true;
+    }
+
+    public function descargar(User $user){
+        return in_array('Descargar Mano de Obra', $user->permisos());
     }
 }

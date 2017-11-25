@@ -118,6 +118,7 @@ class TransporteController extends Controller
 
     public function excel()
     {
+        $this->authorize('descargar', Transporte::class);
         Transporte::excel();
     }
 }

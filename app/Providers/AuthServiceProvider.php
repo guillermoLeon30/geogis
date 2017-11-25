@@ -36,5 +36,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('UsuarioActivo', 'App\Policies\MenusPolicy@UsuarioActivo');
         Gate::define('ver-menu-items', 'App\Policies\MenusPolicy@VerMenuItems');
         Gate::define('VerMenuUsuarios', 'App\Policies\MenusPolicy@VerMenuUsuarios');
+        Gate::define('VerMenuDescargar', 'App\Policies\MenusPolicy@VerMenuDescargar');
     }
 }

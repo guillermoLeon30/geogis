@@ -39,4 +39,12 @@ class MenusPolicy
         
         return (array_search('Ver Menu Usuarios', $user->permisos()) === false )?false:true;
     }
+
+    public function VerMenuDescargar(User $user){
+        if ($user->esAdmin()) {
+            return true;
+        }
+
+        return in_array('Ver Pestaña Descarga', $user->permisos());
+    }
 }

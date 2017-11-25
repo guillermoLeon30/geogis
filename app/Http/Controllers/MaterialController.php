@@ -121,6 +121,7 @@ class MaterialController extends Controller
 
     public function excel()
     {
+        $this->authorize('descargar', Material::class);
         Material::excel();
     }
 }

@@ -118,6 +118,7 @@ class ManoDeObraController extends Controller
 
     public function excel()
     {
+        $this->authorize('descargar', ManoDeObra::class);
         ManoDeObra::excel();
     }
 }

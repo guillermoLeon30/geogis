@@ -117,6 +117,7 @@ class EquipoController extends Controller
 
     public function excel()
     {
+        $this->authorize('descargar', Equipo::class);
         Equipo::excel();
     }
 }
