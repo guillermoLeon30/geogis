@@ -17,8 +17,6 @@ class BiblioApusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $this->authorize('view', BibliotecaApus::class);
-        
         $filtro = (isset($request->filtro) && !empty($request->filtro))?$request->filtro:'';
         $page = $request->page;
         
@@ -33,6 +31,8 @@ class BiblioApusController extends Controller
 
             return response()->json(['apus' => $elementos]);
         }
+
+        $this->authorize('view', BibliotecaApus::class);
 
         $apus = BibliotecaApus::buscar($filtro)->paginate(5);
 
