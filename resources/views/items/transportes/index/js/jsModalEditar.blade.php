@@ -41,7 +41,7 @@ $('#formEditar').submit(function (e) {
 	$.ajax({
 		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
 		url: '{{ url('transportes') }}/' + id,
-		type: 'PUT',
+		type: 'POST',
 		data: datos,
 		dataType: 'json',
 		beforeSend: function () {

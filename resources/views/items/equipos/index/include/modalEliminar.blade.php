@@ -13,6 +13,7 @@
         <form id="formEliminar" class="form-horizontal">
           <div class="modal-body">
             <div class="col-xs-12" id="mensajeEliminar"></div>
+            {{ method_field('DELETE') }}
             <input type="hidden" name="id" id="idEliminar">
             ¿Desea eliminar el registro?
           </div> 

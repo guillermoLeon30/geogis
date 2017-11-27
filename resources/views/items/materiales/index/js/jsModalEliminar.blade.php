@@ -13,7 +13,7 @@ $('#formEliminar').submit(function (e) {
 	$.ajax({
 		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
 		url: '{{ url('materiales') }}/' + id,
-		type: 'DELETE',
+		type: 'POST',
 		data: datos,
 		dataType: 'json',
 		beforeSend: function () {

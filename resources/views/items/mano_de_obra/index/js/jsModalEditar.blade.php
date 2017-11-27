@@ -40,7 +40,7 @@ $('#formEditar').submit(function (e) {
 	$.ajax({
 		headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
 		url: '{{ url('mano_de_obra') }}/' + id,
-		type: 'PUT',
+		type: 'POST',
 		data: datos,
 		dataType: 'json',
 		beforeSend: function () {

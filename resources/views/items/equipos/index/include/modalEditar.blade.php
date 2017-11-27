@@ -14,7 +14,7 @@
           <div class="modal-body">
 
             <div class="col-xs-12" id="mensajeEditar"></div>
-
+            {{ method_field('PUT') }}
             <div class="form-group">
               <label class="col-sm-2 control-label">Fecha</label>
               <div class="col-sm-10">
